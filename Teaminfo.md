@@ -9,6 +9,6 @@
 | **Member1**   | Zixuan Shen|
 | **Member1**   | zixuan41@illinois.com |
 | **Member2**   | Fangyang Xu |
-| **Member2**   | todo |
+| **Member2**   | xu94@illinois.com |
 | **Member3**   | Haipeng Zhang |
 | **Member3**   | haipeng5@illinois.com |
