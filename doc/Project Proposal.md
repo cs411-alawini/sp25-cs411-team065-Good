@@ -116,22 +116,22 @@ The project proposal includes a detailed low-fidelity UI mockup to illustrate th
 ### **Homepage**
 The homepage displays a selection of recommended tourist attractions. Users can search for attractions using the search bar and filter results by category.
 
-![Homepage Mockup](./imgs/Project Proposal/UI%20mockup%20image1.png)
+![Homepage Mockup](./imgs/Project_Proposal/UI%20mockup%20image1.png)
 
 ### **Search Results Page**
 After searching for a location, users are presented with a list of attractions matching their query. Each result includes an image, name, and rating.
 
-![Search Results Mockup](./imgs/Project Proposal/UI%20mockup%20image2.png)
+![Search Results Mockup](./imgs/Project_Proposal/UI%20mockup%20image2.png)
 
 ### **Attraction Details Page**
 Clicking on an attraction opens a detailed page with a full description, images, and hotel recommendations.
 
-![Attraction Details Mockup](./imgs/Project Proposal/UI%20mockup%20image3.png)
+![Attraction Details Mockup](./imgs/Project_Proposal/UI%20mockup%20image3.png)
 
 ### **User Favorites Page**
 Registered users can save attractions to their favorites list for future reference. They can view and manage their saved destinations here.
 
-![User Favorites Mockup](./imgs/Project Proposal/UI%20mockup%20image4.png)
+![User Favorites Mockup](./imgs/Project_Proposal/UI%20mockup%20image4.png)
 
 These mockups guide the UI design, ensuring a user-friendly experience and an intuitive navigation structure.
 
