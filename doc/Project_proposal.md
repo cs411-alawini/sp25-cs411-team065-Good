@@ -89,7 +89,34 @@ The TravelMate web application offers the following core functionalities to enha
 
 ### 5. Favorite Attractions (Create, Delete, View)  
 - Logged-in users can save attractions to their favorites list for future reference.  
-- Users can view and manage their saved attractions (remove or revisit).  
+- Users can view and manage their saved attractions (remove or revisit).
+
+## Low-Fidelity UI Mockup of the Application
+
+The project proposal includes a detailed low-fidelity UI mockup to illustrate the structure and layout of the TravelMate web application. These wireframes provide a visual representation of the core pages and user interactions.
+
+### **Homepage**
+The homepage displays a selection of recommended tourist attractions. Users can search for attractions using the search bar and filter results based on categories.
+
+![Homepage Mockup](./UI%20mockup%20image1.png)
+
+### **Search Results Page**
+After searching for a location, users are presented with a list of attractions matching their query. Each result includes an image, name, and rating.
+
+![Search Results Mockup](./UI%20mockup%20image2.png)
+
+### **Attraction Details Page**
+Clicking on an attraction opens a detailed page with a full description, images, and hotel recommendations.
+
+![Attraction Details Mockup](./UI%20mockup%20image3.png)
+
+### **User Favorites Page**
+Registered users can save attractions to their favorites list for future reference. They can view and manage their saved destinations here.
+
+![User Favorites Mockup](./UI%20mockup%20image4.png)
+
+These mockups serve as a foundational guide for the UI design, ensuring a user-friendly experience and an intuitive navigation structure.
+
 
 
 
