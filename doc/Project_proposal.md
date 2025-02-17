@@ -117,6 +117,87 @@ Registered users can save attractions to their favorites list for future referen
 
 These mockups serve as a foundational guide for the UI design, ensuring a user-friendly experience and an intuitive navigation structure.
 
+## Project Team Responsibilities
+
+### Fangyang: Frontend Architecture & Backend API Integration
+Fangyang is primarily responsible for designing the overall frontend architecture and ensuring seamless interaction between the frontend and backend APIs, enabling dynamic data loading and display. Additionally, Fangyang is responsible for implementing four frontend pages.
+
+#### Specific Responsibilities
+
+##### Frontend Architecture Design
+- Select an appropriate frontend framework (**React**).
+- Plan the project's component structure to ensure modular, reusable, and maintainable frontend code.
+- Organize frontend routing management, allowing smooth navigation between different pages (e.g., homepage, attraction details page, user favorites list).
+- Handle frontend state management (**Redux**) to manage search queries, recommended attractions, and user favorites.
+
+##### Frontend & Backend API Integration
+- Implement API calls from the frontend to retrieve attraction details, hotel recommendations, and user favorites.
+- Parse backend responses and render the data on the frontend (e.g., displaying popular attractions, search results).
+- Process user inputs (e.g., search queries, login/registration) and submit them to the backend API for processing.
+
+---
+
+### Zixuan: CSS, HTML, UI Design & Frontend
+Zixuan is mainly responsible for UI design, HTML & CSS development, and implementing two frontend pages.
+
+#### Specific Responsibilities
+
+##### Frontend UI Design
+- Design and implement the homepage, displaying recommended attractions with images, names, ratings, and other essential details.
+- Design the search results page, ensuring users can easily browse matching attractions.
+- Design the attraction details page, presenting complete attraction information and nearby hotel recommendations.
+- Design the user favorites page, allowing users to view and manage their saved attractions.
+
+##### HTML & CSS Development
+- Write the HTML structure, ensuring a well-organized and semantic page layout.
+- Apply CSS styling optimizations to enhance the website’s appearance and user experience.
+- Use CSS frameworks (e.g., Bootstrap, Tailwind CSS) to accelerate development and improve adaptability.
+- Implement responsive design to ensure compatibility across both desktop and mobile devices.
+
+---
+
+### Yanjun: Data Processing & Database Design
+Yanjun is responsible for processing, cleaning, and modeling data while collaborating with Haipeng to design the database, ensuring efficient and structured data storage and retrieval.
+
+#### Specific Responsibilities
+
+##### Data Processing
+- Parse the dataset provided by TripAdvisor, conducting data preprocessing (e.g., deduplication, noise reduction, formatting).
+- Process geographic location data to facilitate efficient location matching between frontend and backend APIs.
+- Categorize data based on popularity, ratings, attraction type, etc., to support recommendation features.
+
+##### Database Design
+- Design the attraction information table, storing attraction names, descriptions, ratings, and user reviews.
+- Design the user table, storing user registration details and preference data.
+- Design the user favorites table, recording users' saved attractions with support for create, update, and delete operations.
+- Design the hotel information table, storing recommended hotels near attractions.
+
+##### Data Optimization
+- Optimize database queries through indexing to improve search and recommendation response times.
+- Perform data cleaning and transformation to support backend API requests and structured responses.
+
+---
+
+### Haipeng: SQL CRUD, Backend Server Architecture & API Development
+Haipeng is responsible for designing backend APIs, managing the database, and setting up the server architecture to ensure smooth communication between the frontend and backend.
+
+#### Specific Responsibilities
+
+##### Backend Server Architecture
+- Select an appropriate backend framework (e.g., **Spring Boot**).
+- Design RESTful APIs to ensure efficient access to attraction details, user data, and recommendations.
+- Implement user authentication.
+
+##### Database Operations (SQL CRUD)
+- Manage database operations, including creating, reading, updating, and deleting (**CRUD**) attraction and user data.
+- Optimize database queries to enhance retrieval efficiency and prevent performance bottlenecks.
+- Develop an API for user favorites, allowing users to add, remove, and view saved attractions.
+
+##### API Development
+- Implement a **search attractions API**, returning matching attractions based on user input.
+- Implement a **popular attractions API**, returning top-recommended destinations.
+- Implement an **attraction details API**, providing comprehensive information about attractions and nearby hotels.
+- Implement a **user favorites API**, enabling users to manage their saved attractions.
 
 
 
