@@ -142,7 +142,7 @@ This section describes the assumptions made for each entity in our UML diagram, 
 # Normalization_of_database.md
 
 ## 1. User Table
-**Relation**: $\( R_{User}(id, name, email, password) \)  $
+**Relation**: $\( R_{User}(id, name, email, password) \)$  
 **Primary Key**: $\( id \)  $
 **Main Functional Dependency**:  
 1. $\( id \rightarrow name, email, password \)  $
