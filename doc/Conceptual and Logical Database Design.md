@@ -136,3 +136,84 @@ This section describes the assumptions made for each entity in our UML diagram, 
 ### Relationships
 
 **Hotel** and **Attraction** have a **many-to-many (M-N) relationship**, which is managed through the `Relation` entity.
+
+
+# Normalization of Database
+## 1. User Table
+**Relation**: \( R_{User}(id, name, email, password) \)  
+**Primary Key**: \( id \)  
+**Main Functional Dependency**:  
+1. \( id \rightarrow name, email, password \)  
+
+Since \(id\) is the sole candidate key, all non-key attributes fully depend on \(id\). There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
+
+---
+
+## 2. Collection_File Table
+**Relation**: \( R_{CollectionFile}(file\_id, user\_id, name) \)  
+**Primary Key**: \( file\_id \)  
+**Main Functional Dependency**:  
+1. \( file\_id \rightarrow user\_id, name \)  
+
+All non-key attributes depend on the single key \(file\_id\), with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
+
+---
+
+## 3. Collections Table
+**Relation**: \( R_{Collections}(file\_id, item\_id) \)  
+**Primary Key**: \((file\_id, item\_id)\) (a composite key)  
+**Non-key Attributes**: None  
+
+Since this table contains only its composite key and no other attributes, it trivially satisfies both 3NF and BCNF (no non-trivial functional dependencies can violate normal form).
+
+---
+
+## 4. Item Table
+**Relation**: \( R_{Item}(item\_id, type) \)  
+**Primary Key**: \( item\_id \)  
+**Main Functional Dependency**:  
+1. \( item\_id \rightarrow type \)  
+
+There is just one candidate key \((item\_id)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
+
+---
+
+## 5. Hotel Table
+**Relation**: \( R_{Hotel}(id, item\_id, name, image\_url, rating, description, address) \)  
+**Declared Primary Key**: \( id \)  
+Because of the one-to-one relationship with **Item**, it suggests \(item\_id\) is also unique and can serve as a candidate key.  
+**Main Functional Dependencies**:  
+1. \( id \rightarrow item\_id, name, image\_url, rating, description, address \)  
+2. \( item\_id \rightarrow id, name, image\_url, rating, description, address \)  
+
+Both \(id\) and \(item\_id\) are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
+
+---
+
+## 6. Attraction Table
+**Relation**: \( R_{Attraction}(id, item\_id, name, image\_url, rating, description, state) \)  
+**Declared Primary Key**: \( id \)  
+**Implicit Candidate Key**: \( item\_id \) (again, due to a one-to-one relationship with **Item**)  
+**Main Functional Dependencies**:  
+1. \( id \rightarrow item\_id, name, image\_url, rating, description, state \)  
+2. \( item\_id \rightarrow id, name, image\_url, rating, description, state \)  
+
+Similar to the **Hotel** table, \(id\) and \(item\_id\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
+
+---
+
+## 7. Relation Table
+**Relation**: \( R_{Relation}(attraction\_id, hotel\_id) \)  
+**Primary Key**: \((attraction\_id, hotel\_id)\) (a composite key)  
+**Non-key Attributes**: None  
+
+Like **Collections**, this table only contains its composite primary key and no additional attributes, so it trivially meets 3NF and BCNF.
+
+---
+
+## 8. Conclusion
+1. Most tables have a single simple primary key (or a composite key with no additional attributes).  
+2. In the case of **Hotel** and **Attraction**, there are two candidate keys, but all non-key attributes depend directly and fully on either one.  
+3. No partial or transitive dependencies exist (i.e., we do not see any non-key attribute determining another non-key attribute).  
+
+Therefore, **all tables satisfy 3NF**; and because in each table the left-hand side of every nontrivial functional dependency is a (candidate) key, they **also satisfy BCNF**.
