@@ -191,7 +191,7 @@ $\(id\)$  is the only candidate keys of this table. There is no partial or trans
 **Main Functional Dependencies**:  
 1. $\( id \rightarrow itemId, name, imageUrl, rating, description, state \) $  
 
-Similar to the **Hotel** table, \(id\) and \(itemId\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
+Similar to the **Hotel** table, $\(id\)$ is the only candidate keys, and it fully determines all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
 
 ## 7. Relation Table
 **Relation**: $\( R_{Relation}(attractionId, hotelId) \)$    
