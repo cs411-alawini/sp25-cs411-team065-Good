@@ -150,7 +150,7 @@ This section describes the assumptions made for each entity in our UML diagram, 
 Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on $\(id\)$. There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
 
 ## 2. Collection_File Table
-**Relation**: $\( R_{CollectionFile}(file \_ id, userid, name) \)$    
+**Relation**: $\( R_{CollectionFile}(fileid, userid, name) \)$    
 **Primary Key**: $\( fileid \)$    
 **Main Functional Dependency**:  
 1. $\( fileid \rightarrow userid, name \)$  
@@ -177,7 +177,7 @@ Since this table contains only its composite key and no other attributes, it tri
 There is just one candidate key \((itemid)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
 
 ## 5. Hotel Table
-**Relation**: $\( R_{Hotel}(id, item\_id, name, image\_url, rating, description, address) \)$    
+**Relation**: $( R_{Hotel}(id, item\_id, name, image\_url, rating, description, address) )$    
 **Declared Primary Key**: $\( id \)$     
 **Main Functional Dependencies**:  
 1. $\( id \rightarrow item\_id, name, image\_url, rating, description, address \)$  
