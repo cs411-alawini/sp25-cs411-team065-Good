@@ -150,18 +150,18 @@ This section describes the assumptions made for each entity in our UML diagram, 
 Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on $\(id\)$. There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
 
 ## 2. Collection_File Table
-**Relation**: $\( R_{CollectionFile}(fileid, userid, name) \)$    
-**Primary Key**: $\( fileid \)$    
+**Relation**: $\( R_{CollectionFile}(fileId, userId, name) \)$    
+**Primary Key**: $\( fileId \)$    
 **Main Functional Dependency**:  
-1. $\( fileid \rightarrow userid, name \)$  
+1. $\( fileId \rightarrow userId, name \)$  
 
-All non-key attributes depend on the single key $\(fileid\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
+All non-key attributes depend on the single key $\(fileId\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
 
 ---
 
 ## 3. Collections Table
-**Relation**: $\( R_{Collections}(fileid, itemid) \)$    
-**Primary Key**: $\((fileid, itemid)\) (a composite key)$    
+**Relation**: $\( R_{Collections}(fileId, itemId) \)$    
+**Primary Key**: $\((fileId, itemId)\) (a composite key)$    
 **Non-key Attributes**: None  
 
 Since this table contains only its composite key and no other attributes, it trivially satisfies both 3NF and BCNF (no non-trivial functional dependencies can violate normal form).
@@ -169,34 +169,34 @@ Since this table contains only its composite key and no other attributes, it tri
 ---
 
 ## 4. Item Table
-**Relation**: $\( R_{Item}(itemid, type) \)$    
-**Primary Key**: $\( itemid \)$    
+**Relation**: $\( R_{Item}(itemId, type) \)$    
+**Primary Key**: $\( itemId \)$    
 **Main Functional Dependency**:  
-1. $\( itemid \rightarrow type \)$    
+1. $\( itemId \rightarrow type \)$    
 
-There is just one candidate key \((itemid)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
+There is just one candidate key \((itemId)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
 
 ## 5. Hotel Table
-**Relation**: $( R_{Hotel}(id, itemid, name, imageurl, rating, description, address) )$    
+**Relation**: $( R_{Hotel}(id, itemId, name, imageUrl, rating, description, address) )$    
 **Declared Primary Key**: $\( id \)$     
 **Main Functional Dependencies**:  
-1. $\( id \rightarrow item\_id, name, imageurl, rating, description, address \)$  
+1. $\( id \rightarrow itemId, name, imageUrl, rating, description, address \)$  
 
 
-Both $\(id\)$ and $\(itemid\)$ are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
+Both $\(id\)$ and $\(itemId\)$ are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
 
 ## 6. Attraction Table
-**Relation**: $\( R_{Attraction}(id, itemid, name, imageurl, rating, description, state) \)$    
+**Relation**: $\( R_{Attraction}(id, itemId, name, imageUrl, rating, description, state) \)$    
 **Declared Primary Key**: $\( id \)$    
-**Implicit Candidate Key**: $\( itemid \)$   
+**Implicit Candidate Key**: $\( itemId \)$   
 **Main Functional Dependencies**:  
-1. \( id \rightarrow itemid, name, imageurl, rating, description, state \)   
+1. \( id \rightarrow itemId, name, imageUrl, rating, description, state \)   
 
-Similar to the **Hotel** table, \(id\) and \(itemid\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
+Similar to the **Hotel** table, \(id\) and \(itemId\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
 
 ## 7. Relation Table
-**Relation**: $\( R_{Relation}(attractionid, hotelid) \)$    
-**Primary Key**: $\((attractionid, hotelid)\) (a composite key)$    
+**Relation**: $\( R_{Relation}(attractionId, hotelId) \)$    
+**Primary Key**: $\((attractionId, hotelId)\) (a composite key)$    
 **Non-key Attributes**: None  
 
 Like **Collections**, this table only contains its composite primary key and no additional attributes, so it trivially meets 3NF and BCNF.
