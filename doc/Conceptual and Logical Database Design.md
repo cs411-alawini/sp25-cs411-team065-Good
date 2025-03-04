@@ -156,16 +156,12 @@ Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on
 
 All non-key attributes depend on the single key $\(fileId\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
 
----
-
 ## 3. Collections Table
 **Relation**: $\( R_{Collections}(fileId, itemId) \)$    
 **Primary Key**: $\((fileId, itemId)\) (a composite key)$    
 **Non-key Attributes**: None  
 
 Since this table contains only its composite key and no other attributes, it trivially satisfies both 3NF and BCNF (no non-trivial functional dependencies can violate normal form).
-
----
 
 ## 4. Item Table
 **Relation**: $\( R_{Item}(itemId, type) \)$    
