@@ -183,14 +183,14 @@ There is just one candidate key \((itemId)\) and all non-key attributes fully de
 1. $\( id \rightarrow itemId, name, imageUrl, rating, description, address \)$  
 
 
-Both $\(id\)$ and $\(itemId\)$ are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
+$\(id\)$  is the only candidate keys of this table. There is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
 
 ## 6. Attraction Table
 **Relation**: $\( R_{Attraction}(id, itemId, name, imageUrl, rating, description, state) \)$    
 **Declared Primary Key**: $\( id \)$    
 **Implicit Candidate Key**: $\( itemId \)$   
 **Main Functional Dependencies**:  
-1. \( id \rightarrow itemId, name, imageUrl, rating, description, state \)   
+1. $\( id \rightarrow itemId, name, imageUrl, rating, description, state \) $  
 
 Similar to the **Hotel** table, \(id\) and \(itemId\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
 
