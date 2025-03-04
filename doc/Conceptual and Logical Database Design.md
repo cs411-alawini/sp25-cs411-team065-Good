@@ -203,7 +203,6 @@ Like **Collections**, this table only contains its composite primary key and no 
 
 ## 8. Conclusion
 1. Most tables have a single simple primary key (or a composite key with no additional attributes).  
-2. In the case of **Hotel** and **Attraction**, there are two candidate keys, but all non-key attributes depend directly and fully on either one.  
-3. No partial or transitive dependencies exist (i.e., we do not see any non-key attribute determining another non-key attribute).  
+2. No partial or transitive dependencies exist (i.e., we do not see any non-key attribute determining another non-key attribute).  
 
 Therefore, **all tables satisfy 3NF**; and because in each table the left-hand side of every nontrivial functional dependency is a (candidate) key, they **also satisfy BCNF**.
