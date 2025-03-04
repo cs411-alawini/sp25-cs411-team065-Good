@@ -149,15 +149,13 @@ This section describes the assumptions made for each entity in our UML diagram, 
 
 Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on $\(id\)$. There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
 
----
-
 ## 2. Collection_File Table
-**Relation**: $\( R_{CollectionFile}(file\_id, user\_id, name) \)$    
-**Primary Key**: $\( file\_id \)$    
+**Relation**: $\( R_{CollectionFile}(fileid, userid, name) \)$    
+**Primary Key**: $\( fileid \)$    
 **Main Functional Dependency**:  
-1. $\( file\_id \rightarrow user\_id, name \)$  
+1. $\( fileid \rightarrow userid, name \)$  
 
-All non-key attributes depend on the single key $\(file\_id\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
+All non-key attributes depend on the single key $\(fileid\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
 
 ---
 
