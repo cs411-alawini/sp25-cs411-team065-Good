@@ -231,3 +231,18 @@ Therefore, **all tables satisfy 3NF**; and because in each table the left-hand s
 ## 7. Attraction --- Relation
 - **Cardinality:** One-to-many (1..*)
 - **Description:** An attraction can recommend multiple hotels, meaning one attraction can be associated with multiple hotels. This relationship is also captured in the Relation table, where the attraction is linked to multiple hotels.
+
+# Relational Schema
+- User(id:INT [PK], name:VARCHAR(20), email:VARCHAR(20), password:VARCHAR(20))
+
+- Collection_File(file_id:INT [PK], user_id:INT [FK to User.id], name:VARCHAR(20))
+
+- Collections(file_id:INT [PK, FK to Collection_File.file_id], item_id:INT [PK, FK to Item.item_id])
+
+- Item(item_id:INT [PK], type:ENUM)
+
+- Hotel(id:INT [PK], item_id:INT [FK to Item.item_id], name:VARCHAR(20), image_url:VARCHAR(100), rating:DECIMAL(3,2), description:VARCHAR(200), address:VARCHAR(100))
+
+- Attraction(id:INT [PK], item_id:INT [FK to Item.item_id], name:VARCHAR(20), image_url:VARCHAR(100), rating:DECIMAL(3,2), description:VARCHAR(100), state:VARCHAR(20))
+
+- Relation(attraction_id:INT [PK, FK to Attraction.id], hotel_id:INT [PK, FK to Hotel.id])
