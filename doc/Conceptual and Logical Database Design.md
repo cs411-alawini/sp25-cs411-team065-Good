@@ -139,7 +139,6 @@ This section describes the assumptions made for each entity in our UML diagram, 
 
 
 # Normalization of Database
-# Normalization_of_database.md
 
 ## 1. User Table
 **Relation**: $\( R_{User}(id, name, email, password) \)$  
