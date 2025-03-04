@@ -152,18 +152,18 @@ Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on
 ---
 
 ## 2. Collection_File Table
-**Relation**: \( R_{CollectionFile}(file\_id, user\_id, name) \)  
-**Primary Key**: \( file\_id \)  
+**Relation**: $\( R_{CollectionFile}(file\_id, user\_id, name) \)$    
+**Primary Key**: $\( file\_id \)$    
 **Main Functional Dependency**:  
-1. \( file\_id \rightarrow user\_id, name \)  
+1. $\( file\_id \rightarrow user\_id, name \)$  
 
-All non-key attributes depend on the single key \(file\_id\), with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
+All non-key attributes depend on the single key $\(file\_id\)$, with no partial or transitive dependencies. Therefore, **Collection_File** is in 3NF (and BCNF).
 
 ---
 
 ## 3. Collections Table
-**Relation**: \( R_{Collections}(file\_id, item\_id) \)  
-**Primary Key**: \((file\_id, item\_id)\) (a composite key)  
+**Relation**: $\( R_{Collections}(file\_id, item\_id) \)$    
+**Primary Key**: $\((file\_id, item\_id)\) (a composite key)$    
 **Non-key Attributes**: None  
 
 Since this table contains only its composite key and no other attributes, it trivially satisfies both 3NF and BCNF (no non-trivial functional dependencies can violate normal form).
@@ -171,42 +171,40 @@ Since this table contains only its composite key and no other attributes, it tri
 ---
 
 ## 4. Item Table
-**Relation**: \( R_{Item}(item\_id, type) \)  
-**Primary Key**: \( item\_id \)  
+**Relation**: $\( R_{Item}(item\_id, type) \)$    
+**Primary Key**: $\( item\_id \)$    
 **Main Functional Dependency**:  
-1. \( item\_id \rightarrow type \)  
+1. $\( item\_id \rightarrow type \)$    
 
 There is just one candidate key \((item\_id)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
 
 ---
 
 ## 5. Hotel Table
-**Relation**: \( R_{Hotel}(id, item\_id, name, image\_url, rating, description, address) \)  
-**Declared Primary Key**: \( id \)  
-Because of the one-to-one relationship with **Item**, it suggests \(item\_id\) is also unique and can serve as a candidate key.  
+**Relation**: $\( R_{Hotel}(id, item\_id, name, image\_url, rating, description, address) \)$    
+**Declared Primary Key**: $\( id \)$     
 **Main Functional Dependencies**:  
-1. \( id \rightarrow item\_id, name, image\_url, rating, description, address \)  
-2. \( item\_id \rightarrow id, name, image\_url, rating, description, address \)  
+1. $\( id \rightarrow item\_id, name, image\_url, rating, description, address \)$  
 
-Both \(id\) and \(item\_id\) are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
+
+Both $\(id\)$ and $\(item\_id\)$ are candidate keys. Any functional dependency that has either candidate key on the left-hand side implies all non-key attributes. As a result, there is no partial or transitive dependency, and no dependency where a non-key attribute determines another non-key attribute. Hence, **Hotel** is in 3NF and also satisfies BCNF.
 
 ---
 
 ## 6. Attraction Table
-**Relation**: \( R_{Attraction}(id, item\_id, name, image\_url, rating, description, state) \)  
-**Declared Primary Key**: \( id \)  
-**Implicit Candidate Key**: \( item\_id \) (again, due to a one-to-one relationship with **Item**)  
+**Relation**: $\( R_{Attraction}(id, item\_id, name, image\_url, rating, description, state) \)$    
+**Declared Primary Key**: $\( id \)$    
+**Implicit Candidate Key**: $\( item\_id \)$   
 **Main Functional Dependencies**:  
-1. \( id \rightarrow item\_id, name, image\_url, rating, description, state \)  
-2. \( item\_id \rightarrow id, name, image\_url, rating, description, state \)  
+1. \( id \rightarrow item\_id, name, image\_url, rating, description, state \)   
 
 Similar to the **Hotel** table, \(id\) and \(item\_id\) are both candidate keys, and they fully determine all other attributes. There are no partial or transitive dependencies. Thus, **Attraction** also satisfies 3NF (and BCNF).
 
 ---
 
 ## 7. Relation Table
-**Relation**: \( R_{Relation}(attraction\_id, hotel\_id) \)  
-**Primary Key**: \((attraction\_id, hotel\_id)\) (a composite key)  
+**Relation**: $\( R_{Relation}(attraction\_id, hotel\_id) \)$    
+**Primary Key**: $\((attraction\_id, hotel\_id)\) (a composite key)$    
 **Non-key Attributes**: None  
 
 Like **Collections**, this table only contains its composite primary key and no additional attributes, so it trivially meets 3NF and BCNF.
