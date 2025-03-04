@@ -143,7 +143,7 @@ This section describes the assumptions made for each entity in our UML diagram, 
 
 ## 1. User Table
 **Relation**: $\( R_{User}(id, name, email, password) \)$  
-**Primary Key**: $\( id \)  $
+**Primary Key**: $\( id \)$
 **Main Functional Dependency**:  
 1. $\( id \rightarrow name, email, password \)  $
 
