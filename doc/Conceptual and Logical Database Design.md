@@ -140,12 +140,12 @@ This section describes the assumptions made for each entity in our UML diagram, 
 
 # Normalization of Database
 ## 1. User Table
-**Relation**: \( R_{User}(id, name, email, password) \)  
-**Primary Key**: \( id \)  
+**Relation**: $(R_{User}(id, name, email, password))$  
+**Primary Key**: ( id )  
 **Main Functional Dependency**:  
-1. \( id \rightarrow name, email, password \)  
+1. ( id \rightarrow name, email, password )  
 
-Since \(id\) is the sole candidate key, all non-key attributes fully depend on \(id\). There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
+Since (id) is the sole candidate key, all non-key attributes fully depend on (id). There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
 
 ---
 
