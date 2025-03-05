@@ -159,7 +159,7 @@ All non-key attributes depend on the single key $\(fileId\)$, with no partial or
 
 ## 3. Collections Table
 **Relation**: $\( R_{Collections}(fileId, itemId) \)$    
-**Primary Key**: $\((fileId, itemId)\) (a composite key)$    
+**Primary Key**: $\((fileId, itemId)\) (composite key)$    
 **Non-key Attributes**: None  
 
 Since this table contains only its composite key and no other attributes, it trivially satisfies both 3NF and BCNF (no non-trivial functional dependencies can violate normal form).
@@ -170,7 +170,7 @@ Since this table contains only its composite key and no other attributes, it tri
 **Main Functional Dependency**:  
 1. $\( itemId \rightarrow type \)$    
 
-There is just one candidate key \((itemId)\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
+There is just one candidate key \(itemId\) and all non-key attributes fully depend on that key. Therefore, **Item** satisfies 3NF (and BCNF).
 
 ## 5. Hotel Table
 **Relation**: $( R_{Hotel}(id, itemId, name, imageUrl, rating, description, address) )$    
@@ -192,7 +192,7 @@ Similar to the **Hotel** table, $\(id\)$ is the only candidate keys, and it full
 
 ## 7. Relation Table
 **Relation**: $\( R_{Relation}(attractionId, hotelId) \)$    
-**Primary Key**: $\((attractionId, hotelId)\) (a composite key)$    
+**Primary Key**: $\((attractionId, hotelId)\) (composite key)$    
 **Non-key Attributes**: None  
 
 Like **Collections**, this table only contains its composite primary key and no additional attributes, so it trivially meets 3NF and BCNF.
