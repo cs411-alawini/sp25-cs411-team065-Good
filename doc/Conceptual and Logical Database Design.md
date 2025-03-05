@@ -59,7 +59,7 @@ This section describes the assumptions made for each entity in our UML diagram, 
 ### Relationships
 
 - **Collection** and **Collection_File** have a **1-N relationship**.
-- **Collection** and **Item** have a **1-1 relationship**, meaning each collection entry is associated with exactly one `Item`.
+- **Item** and **Collection** have a **1-N relationship**, meaning each `Item` is associated with many `collection` entries.
 
 ## Item
 
@@ -144,6 +144,7 @@ This section describes the assumptions made for each entity in our UML diagram, 
 **Relation**: $\( R_{User}(id, name, email, password) \)$  
 **Primary Key**: $\( id \)$  
 **Main Functional Dependency**:  
+
 1. $\( id \rightarrow name, email, password \)  $
 
 Since $\(id\)$ is the sole candidate key, all non-key attributes fully depend on $\(id\)$. There is no partial or transitive dependency. Hence, **User** is in 3NF (and also in BCNF).
@@ -200,13 +201,13 @@ Like **Collections**, this table only contains its composite primary key and no 
 1. Most tables have a single simple primary key (or a composite key with no additional attributes).  
 2. No partial or transitive dependencies exist (i.e., we do not see any non-key attribute determining another non-key attribute).  
 
-Therefore, **all tables satisfy 3NF**; and because in each table the left-hand side of every nontrivial functional dependency is a (candidate) key, they **also satisfy BCNF**.
+Therefore, **all tables satisfy 3NF**; because the left-hand side of every nontrivial functional dependency is a (candidate) key in each table, they **also satisfy BCNF**.
 
 # Entity Relationship Description
 
 ## 1. User --- Collection_File
 - **Cardinality:** One-to-many (1..*)
-- **Description:** A user can create multiple collection files, and each collection file belongs to one user.
+- **Description:** A user can create multiple collection files, each belonging to one user.
 
 ## 2. Collection_File --- Item
 - **Cardinality:** One-to-many (1..*)
@@ -214,7 +215,7 @@ Therefore, **all tables satisfy 3NF**; and because in each table the left-hand s
 
 ## 3. Item --- Collections
 - **Cardinality:** Many-to-many (..)
-- **Description:** An item can appear in multiple collections, and each collection can contain multiple items.
+- **Description:** An item can appear in multiple collections, each containing multiple items.
 
 ## 4. Item --- Hotel
 - **Cardinality:** One-to-one (1..1)
@@ -226,11 +227,11 @@ Therefore, **all tables satisfy 3NF**; and because in each table the left-hand s
 
 ## 6. Hotel --- Relation
 - **Cardinality:** One-to-many (1..*)
-- **Description:** A hotel can be associated with multiple attractions, meaning one hotel can be recommended by several attractions. This relationship is represented in the Relation table, where the hotel is connected to multiple attractions.
+- **Description:** A hotel can be associated with multiple attractions, meaning several attractions can recommend one hotel. This relationship is represented in the Relation table, where the hotel is connected to multiple attractions.
 
 ## 7. Attraction --- Relation
 - **Cardinality:** One-to-many (1..*)
-- **Description:** An attraction can recommend multiple hotels, meaning one attraction can be associated with multiple hotels. This relationship is also captured in the Relation table, where the attraction is linked to multiple hotels.
+- **Description:** An attraction can recommend multiple hotels, meaning one attraction can be associated with multiple hotels. This relationship is also captured in the Relation table, which links the attraction to multiple hotels.
 
 # Relational Schema
 - **User**(id:INT [PK], name:VARCHAR(20), email:VARCHAR(20), password:VARCHAR(20))
