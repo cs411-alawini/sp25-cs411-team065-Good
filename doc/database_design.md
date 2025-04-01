@@ -76,7 +76,7 @@ WHERE
         WHERE a2.state = a.state
     )
 ORDER BY AttractionName, HotelName;
-
+```
 
 ### 2.4 Query 4
 - Same structure as above
