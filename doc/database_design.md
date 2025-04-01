@@ -45,19 +45,21 @@
 ### 3.3 Index Analysis for Query 3
 - **No index**
 ![URM](./imgs/Database_Design/index3_1.png)
-> explanation
 
 - **index Attractions.name**
 ![URM](./imgs/Database_Design/index3_2.png)
 > explanation
+It does not have a significant improvement. Although the leaf nodes of a B+ Tree form a linked list, which is generally efficient for ordered retrieval, the execution analyze shows that the optimizer did not use the index for sorting. This is likely because the number of output rows is relatively small, making the cost of using the index higher than simply performing a sort in memory.
 
 - **index Attractions.state**
 ![URM](./imgs/Database_Design/index3_3.png)
 > explanation
+It significantly reduces the search cost. Without the index, the subquery must perform a full table scan on the Attractions table. With the index, the executor can quickly locate the matching state values, narrowing down the number of rows to scan.
 
 - **index Attractions.state, Attractions.rating**
 ![URM](./imgs/Database_Design/index3_4.png)
 > explanation
+We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.
 
 ### 3.4 Index Analysis for Query 4
 - Same structure as above
