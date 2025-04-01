@@ -46,7 +46,33 @@ LIMIT 15;
 
 
 ### 2.2 Query 2
+**Query description**  
+This query expands the basic user-collection lookup by also counting how many items exist in each collection. Given a specific username (e.g., `'user1'`), it joins `User` and `Collection_File`, then **LEFT JOINs** the `Collections` table to count how many `item_id` entries appear in each collection. This ensures we have both **JOIN** and **GROUP BY** to meet advanced query requirements.
 
+**SQL concepts used**  
+- **Multiple Joins**: Joins `User` → `Collection_File` → (optionally) `Collections`  
+- **GROUP BY**: Groups results by `cf.file_id` to aggregate the total items per collection  
+- **COUNT()**: Counts the number of items in each collection  
+- **WHERE**: Filters by a specific username  
+- **LIMIT**: Returns only the first 15 rows
+
+**SQL statement**  
+```sql
+SELECT
+    u.name AS username,
+    cf.file_id,
+    cf.name AS collection_name,
+    COUNT(c.item_id) AS total_items
+FROM User u
+JOIN Collection_File cf 
+    ON u.id = cf.user_id
+LEFT JOIN Collections c
+    ON cf.file_id = c.file_id
+WHERE u.name = 'user1'
+GROUP BY cf.file_id
+ORDER BY total_items DESC
+LIMIT 15;
+```
 
 ### 2.3 Query 3
 
