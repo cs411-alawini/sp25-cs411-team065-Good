@@ -43,7 +43,21 @@
 - Same structure as above
 
 ### 3.3 Index Analysis for Query 3
-- Same structure as above
+- **No index**
+![URM](./imgs/Database_Design/index3_1.png)
+> explanation
+
+- **index Attractions.name**
+![URM](./imgs/Database_Design/index3_2.png)
+> explanation
+
+- **index Attractions.state**
+![URM](./imgs/Database_Design/index3_3.png)
+> explanation
+
+- **index Attractions.state, Attractions.rating**
+![URM](./imgs/Database_Design/index3_4.png)
+> explanation
 
 ### 3.4 Index Analysis for Query 4
 - Same structure as above
