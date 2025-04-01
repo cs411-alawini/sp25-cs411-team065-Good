@@ -46,13 +46,19 @@ LIMIT 15;
 
 
 ### 2.2 Query 2
+
+
+### 2.3 Query 3
+
 **Query description**  
 This query finds all hotels that are associated with the “highest-rated” attractions within each state. It uses a **subquery** to determine the maximum rating in that attraction’s state and filters any attractions whose rating matches that maximum value. Then, by joining `Hotels`, `Relations`, and `Attractions`, it retrieves the corresponding hotel names alongside those top-rated attractions.
+
 **SQL concepts used**  
 - **Multiple Joins**: (`Hotels` ↔ `Relations` ↔ `Attractions`)  
 - **Subquery**: `SELECT MAX(a2.rating) FROM Attractions a2 WHERE a2.state = a.state`  
 - **Filtering with a Subquery Result**: Compares the current row’s `a.rating` to the subquery’s maximum rating  
 - **ORDER BY**: Sorts the final list by `AttractionName` and then `HotelName`
+
 **SQL statement**  
 ```sql
 SELECT
@@ -70,9 +76,7 @@ WHERE
         WHERE a2.state = a.state
     )
 ORDER BY AttractionName, HotelName;
-```
-### 2.3 Query 3
-- Same structure as above
+
 
 ### 2.4 Query 4
 - Same structure as above
