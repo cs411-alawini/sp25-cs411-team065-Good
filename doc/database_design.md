@@ -192,6 +192,7 @@ LIMIT 15;
 
 #### index Hotel.rating
 ![URM](./imgs/Database_Design/index4_3.png)
+> explanantion
 - Indexing Hotels.rating resulted in the best performance. It is used very effectively, as the filtering condition was very selective, significantly reduced the number of rows early in the execution. 
 
 #### index Hotel.rating, Hotel.name
