@@ -17,10 +17,31 @@
 ## Part 2: Advanced SQL Queries
 
 ### 2.1 Query 1
-- Query description
-- SQL concepts used (e.g., JOIN, GROUP BY, subqueries, SET operations, etc.)
-- SQL statement
-- Screenshot of the first 15 rows of query output
+**Query description**  
+This query retrieves the top 15 hotels that have received the most collections from users, only considering hotels with a rating above 4.0. It joins the `Hotel`, `Item`, and `Collections` tables to connect hotel data with user collection activity, and then groups by hotel to aggregate the total number of collections and compute the average rating.
+
+**SQL concepts used**  
+- **Multiple Joins** (JOIN `Hotel` ↔ `Item` ↔ `Collections`)  
+- **WHERE** (filters hotels by rating > 4.0)  
+- **GROUP BY** (groups results by hotel)  
+- **Aggregation** (`COUNT()`, `AVG()`)  
+- **ORDER BY** (sorts by times_collected in descending order)  
+- **LIMIT** (retrieves the first 15 rows)
+
+**SQL statement**  
+```sql
+SELECT 
+    h.name, 
+    h.address,
+    COUNT(c.item_id) AS times_collected,
+    AVG(h.rating) AS avg_rating
+FROM Hotel h
+JOIN Item i ON h.item_id = i.item_id
+JOIN Collections c ON c.item_id = i.item_id
+WHERE h.rating > 4.0
+GROUP BY h.id
+ORDER BY times_collected DESC
+LIMIT 15;
 
 ### 2.2 Query 2
 - Same structure as above
