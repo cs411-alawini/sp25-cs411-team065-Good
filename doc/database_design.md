@@ -86,6 +86,9 @@ ORDER BY total_items DESC
 LIMIT 15;
 ```
 
+**Query result**  
+![URM](./imgs/Database_Design/query_2.png)
+
 ### 2.3 Query 3
 
 **Query description**  
@@ -113,8 +116,12 @@ WHERE
         FROM Attractions a2
         WHERE a2.state = a.state
     )
-ORDER BY AttractionName, HotelName;
+ORDER BY AttractionName, HotelName
+LIMIT 15;
 ```
+
+**Query result**  
+![URM](./imgs/Database_Design/query_3.png)
 
 ### 2.4 Query 4
 
@@ -141,6 +148,9 @@ WHERE a.rating >= 4.5
 ORDER BY rating DESC
 LIMIT 15;
 ```
+
+**Query result**  
+![URM](./imgs/Database_Design/query_4.png)
 
 ## Part 3: Indexing and Optimization
 
