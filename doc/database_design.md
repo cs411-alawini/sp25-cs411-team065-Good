@@ -12,19 +12,19 @@ This database consists of **7 relational schemas** that together support a trave
 2. **Collection_File**  
    Represents a user's collection folder. A user can have multiple folders.
 
-3. **Item**  
+3. **Items**  
    An abstract representation of collectible entities. Each item can be either a hotel or an attraction.
 
-4. **Attraction**  
+4. **Attractions**  
    Contains detailed information about attractions, such as name, rating, image URL, description, and state.
 
-5. **Hotel**  
+5. **Hotels**  
    Similar to attractions, this table stores hotel-related information like name, rating, image URL, address, and description.
 
 6. **Collections**  
    A many-to-many mapping between collection files and items. Each file can contain many items, and each item can appear in multiple files.
 
-7. **Relation**  
+7. **Relations**  
    Represents the real-world relationship between attractions and nearby hotels. One attraction can be related to multiple hotels, and vice versa.
 
 ### 1.2 Table Creation Statements (DDL)
@@ -91,10 +91,10 @@ CREATE TABLE Relations (
 We ensured that the database is populated with **a rich set of data**, meeting the requirement of inserting **at least 1000 rows** into **3 or more tables**.
 
 #### Tables with 1000+ rows:
-- `Attraction`: Data was collected via web scraping from TripAdvisor, including real ratings, locations, and descriptions.
-- `Hotel`: Similarly, real hotel data including addresses and images were extracted and cleaned.
-- `Item`: Every attraction and hotel is linked to an `Item` row with type specified.
-- `Relation`: Multiple hotels were associated with nearby attractions using geographic or logical proximity to populate over 1000 valid relationships.
+- `Attractions`: Data was collected via web scraping from TripAdvisor, including real ratings, locations, and descriptions.
+- `Hotels`: Similarly, real hotel data including addresses and images were extracted and cleaned.
+- `Items`: Every attraction and hotel is linked to an `Item` row with type specified.
+- `Relations`: Multiple hotels were associated with nearby attractions using geographic or logical proximity to populate over 1000 valid relationships.
 
 #### 🔄 Supporting Data Generation:
 - `User`: Mock names, emails, and passwords were randomly generated.
