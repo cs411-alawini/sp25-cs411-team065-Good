@@ -145,27 +145,56 @@ LIMIT 15;
 ## Part 3: Indexing and Optimization
 
 ### 3.1 Index Analysis for Query 1
-- `EXPLAIN ANALYZE` results before and after indexing
-- Explanation of index design and its effect
+
+![URM](./imgs/Database_Design/index1_0.png)
+
+#### Baseline
+
+![URM](./imgs/Database_Design/index1_1.png)
+
+#### Index on Attractions(state)
+
+![URM](./imgs/Database_Design/index1_2.png)
+
+##### Explanation
+
+The index on state provides a minor improvement by slightly accelerating the GROUP BY operation. However, due to low selectivity and full-table grouping, the overall benefit is marginal.
+
+#### Index on Attractions(state, rating)
+
+![URM](./imgs/Database_Design/index1_3.png)
+
+##### Explanation
+
+This compound index provides access to both the state and rating columns, allowing MySQL to optimize the GROUP BY state and aggregation (AVG(rating)) together. Compared to the single-column state index, this index enables a **covering index scan**, which improves locality and reduces data access overhead. While the gain is modest, this index design is useful for aggregation-heavy queries involving both grouping and value computation on the same table.
+
+#### Index on Hotels(rating)
+
+![URM](./imgs/Database_Design/index1_4.png)
+
+##### Explanation
+
+This index degraded performance due to the overhead of using the rating index in an aggregation-only context.   Since no filtering is applied on rating, and the dataset is small, this index introduces unnecessary complexity.
 
 ### 3.2 Index Analysis for Query 2
+
 - Same structure as above
 
 ### 3.3 Index Analysis for Query 3
-#### No index
+#### Baseline
 ![URM](./imgs/Database_Design/index3_1.png)
 
-#### index Attractions.name
+#### Index on Attractions.name
 ![URM](./imgs/Database_Design/index3_2.png)
 > explanation
 - It does not have a significant improvement. Although the leaf nodes of a B+ Tree form a linked list, which is generally efficient for ordered retrieval, the execution analyze shows that the optimizer did not use the index for sorting. This is likely because the number of output rows is relatively small, making the cost of using the index higher than simply performing a sort in memory.</br>
 
-#### index Attractions.state
+#### Index on Attractions.state
 ![URM](./imgs/Database_Design/index3_3.png)
 > explanation
 - It significantly reduces the search cost. Without the index, the subquery must perform a full table scan on the Attractions table. With the index, the executor can quickly locate the matching state values, narrowing down the number of rows to scan.</br>
 
-#### index Attractions.state, Attractions.rating
+#### Index on Attractions.state, Attractions.rating
 ![URM](./imgs/Database_Design/index3_4.png)
 > explanation
 - We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.</br>
