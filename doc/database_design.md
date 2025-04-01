@@ -195,39 +195,45 @@ This index degraded performance due to the overhead of using the rating index in
 #### Baseline
 ![URM](./imgs/Database_Design/index3_1.png)
 
-#### Index on Attractions.name
+#### Index on Attractions(name)
 ![URM](./imgs/Database_Design/index3_2.png)
-> explanation
-- It does not have a significant improvement. Although the leaf nodes of a B+ Tree form a linked list, which is generally efficient for ordered retrieval, the execution analyze shows that the optimizer did not use the index for sorting. This is likely because the number of output rows is relatively small, making the cost of using the index higher than simply performing a sort in memory.</br>
+##### Explanation
 
-#### Index on Attractions.state
+It does not have a significant improvement. Although the leaf nodes of a B+ Tree form a linked list, which is generally efficient for ordered retrieval, the execution analyze shows that the optimizer did not use the index for sorting. This is likely because the number of output rows is relatively small, making the cost of using the index higher than simply performing a sort in memory.
+
+#### Index on Attractions(state)
 ![URM](./imgs/Database_Design/index3_3.png)
-> explanation
-- It significantly reduces the search cost. Without the index, the subquery must perform a full table scan on the Attractions table. With the index, the executor can quickly locate the matching state values, narrowing down the number of rows to scan.</br>
+##### Explanation
 
-#### Index on Attractions.state, Attractions.rating
+It significantly reduces the search cost. Without the index, the subquery must perform a full table scan on the Attractions table. With the index, the executor can quickly locate the matching state values, narrowing down the number of rows to scan.
+
+#### Index on Attractions(state, rating)
 ![URM](./imgs/Database_Design/index3_4.png)
-> explanation
-- We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.</br>
+##### Explanation
+
+We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.
 
 ### 3.4 Index Analysis for Query 4
-#### No index
+#### Baseline
 ![URM](./imgs/Database_Design/index4_1.png)
 
-#### index Attractions.rating
+#### Index on Attractions(rating)
 ![URM](./imgs/Database_Design/index4_2.png)
-> explanation
-- Adding Attractions.rating only may cause the worst performance, the presence of the index caused the planner to overestimate the number of qualifying rows, leading to higher estimated costs for deduplication and sorting in the union operation.
+##### Explanation
 
-#### index Hotel.rating
+Adding Attractions.rating only may cause the worst performance, the presence of the index caused the planner to overestimate the number of qualifying rows, leading to higher estimated costs for deduplication and sorting in the union operation.
+
+#### Index on Hotel(rating)
 ![URM](./imgs/Database_Design/index4_3.png)
-> explanantion
-- Indexing Hotels.rating resulted in the best performance. It is used very effectively, as the filtering condition was very selective, significantly reduced the number of rows early in the execution. 
+##### Explanation
 
-#### index Hotel.rating, Hotel.name
+Indexing Hotels.rating resulted in the best performance. It is used very effectively, as the filtering condition was very selective, significantly reduced the number of rows early in the execution. 
+
+#### Index on Hotel(rating, name)
 ![URM](./imgs/Database_Design/index4_4.png)
-> explanantion
-- We ultimately chose to use this composite index. Beside the benefit of indexing Hotel.rating, it also provides the covering index lookup for name, so the executor does not have the need to accessing the primary B+ tree, improving the efficiency.
+##### Explanation
+
+We ultimately chose to use this composite index. Beside the benefit of indexing Hotel.rating, it also provides the covering index lookup for name, so the executor does not have the need to accessing the primary B+ tree, improving the efficiency.
 
 ---
 
@@ -235,7 +241,4 @@ This index degraded performance due to the overhead of using the rating index in
 
 ### 4.1 Database Deployment Screenshot
 - Screenshot of terminal showing database creation locally or on GCP
-
-### 4.2 Additional Notes
-- Optional: Notes, data generation scripts, or external links
 
