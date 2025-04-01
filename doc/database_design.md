@@ -29,7 +29,6 @@ This query retrieves the top 15 hotels that have received the most collections f
 - **LIMIT** (retrieves the first 15 rows)
 
 **SQL statement**  
-```sql
 SELECT 
     h.name, 
     h.address,
@@ -41,7 +40,7 @@ JOIN Collections c ON c.item_id = i.item_id
 WHERE h.rating > 4.0
 GROUP BY h.id
 ORDER BY times_collected DESC
-LIMIT 15;```
+LIMIT 15;
 
 ### 2.2 Query 2
 - Same structure as above
