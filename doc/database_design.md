@@ -79,9 +79,30 @@ ORDER BY AttractionName, HotelName;
 ```
 
 ### 2.4 Query 4
-- Same structure as above
 
----
+**Query description**  
+This query merges two result sets into a single list using the **UNION** operator. The first part selects hotels with ratings >= 4.0, and the second part selects attractions with ratings >= 4.5. Both sets share the same output columns (`type`, `place_name`, `rating`), allowing a combined “high-rated recommendation list.” The results are then ordered by rating in descending order and limited to the top 15 rows.
+
+**SQL concepts used**  
+- **SET Operator (UNION)**: Combines rows from two SELECT statements into one result set  
+- **WHERE**: Filters results based on the hotel or attraction ratings  
+- **ORDER BY**: Sorts all combined rows by rating  
+- **LIMIT**: Restricts the result to 15 rows
+
+**SQL statement**  
+```sql
+SELECT 'Hotel' AS type, h.name AS place_name, h.rating
+FROM Hotels h
+WHERE h.rating >= 4.0
+
+UNION
+
+SELECT 'Attraction' AS type, a.name AS place_name, a.rating
+FROM Attractions a
+WHERE a.rating >= 4.5
+ORDER BY rating DESC
+LIMIT 15;
+```
 
 ## Part 3: Indexing and Optimization
 
