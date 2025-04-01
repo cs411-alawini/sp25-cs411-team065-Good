@@ -43,7 +43,8 @@ GROUP BY h.id
 ORDER BY times_collected DESC
 LIMIT 15;
 ```
-
+**Query result**  
+![URM](./imgs/Database_Design/query_1.png)
 
 ### 2.2 Query 2
 **Query description**  
