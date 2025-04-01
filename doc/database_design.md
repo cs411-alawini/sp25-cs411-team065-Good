@@ -41,7 +41,7 @@ JOIN Collections c ON c.item_id = i.item_id
 WHERE h.rating > 4.0
 GROUP BY h.id
 ORDER BY times_collected DESC
-LIMIT 15;
+LIMIT 15;```
 
 ### 2.2 Query 2
 - Same structure as above
