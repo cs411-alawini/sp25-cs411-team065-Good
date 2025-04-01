@@ -18,15 +18,21 @@
 
 ### 2.1 Query 1
 **Query description**  
-This query retrieves the top 15 hotels that have received the most collections from users, only considering hotels with a rating above 4.0. It joins the `Hotel`, `Item`, and `Collections` tables to connect hotel data with user collection activity, and then groups by hotel to aggregate the total number of collections and compute the average rating.
+This SQL query retrieves each state’s total number of attractions, average attraction rating, total number of hotels, and average hotel rating. It filters out states with fewer than three attractions and orders the results by the highest average attraction rating, limiting the output to the top 15 rows.
 
-**SQL concepts used**  
-- **Multiple Joins** (JOIN `Hotel` ↔ `Item` ↔ `Collections`)  
-- **WHERE** (filters hotels by rating > 4.0)  
-- **GROUP BY** (groups results by hotel)  
-- **Aggregation** (`COUNT()`, `AVG()`)  
-- **ORDER BY** (sorts by times_collected in descending order)  
-- **LIMIT** (retrieves the first 15 rows)
+---
+
+**SQL Concepts Used**  
+1. **SELECT**: Retrieves specific columns and applies aggregate functions (`COUNT`, `AVG`).
+2. **JOIN**:  
+   - Uses `Relations` as a bridge to connect `Attractions` (`a`) and `Hotels` (`h`).
+3. **GROUP BY**: Groups rows by `a.state` to perform aggregate calculations on each state.
+4. **DISTINCT**: Ensures that repeated location IDs and hotel IDs are only counted once.
+5. **HAVING**: Filters groups (states) to include only those with at least three unique attractions.
+6. **ORDER BY**: Sorts the results in descending order of average attraction rating.
+7. **LIMIT**: Restricts the result set to 15 rows.
+
+---
 
 **SQL statement**  
 ```sql
