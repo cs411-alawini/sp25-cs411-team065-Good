@@ -20,7 +20,6 @@
 **Query description**  
 This SQL query retrieves each state’s total number of attractions, average attraction rating, total number of hotels, and average hotel rating. It filters out states with fewer than three attractions and orders the results by the highest average attraction rating, limiting the output to the top 15 rows.
 
----
 
 **SQL Concepts Used**  
 1. **SELECT**: Retrieves specific columns and applies aggregate functions (`COUNT`, `AVG`).
@@ -32,7 +31,6 @@ This SQL query retrieves each state’s total number of attractions, average att
 6. **ORDER BY**: Sorts the results in descending order of average attraction rating.
 7. **LIMIT**: Restricts the result set to 15 rows.
 
----
 
 **SQL statement**  
 ```sql
