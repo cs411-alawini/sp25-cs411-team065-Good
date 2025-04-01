@@ -3,14 +3,103 @@
 ## Part 1: Relational Schemas and Table Creation
 
 ### 1.1 Overview of Relational Schemas
-- Brief description of at least 5 relational schemas implemented
+
+This database consists of **7 relational schemas** that together support a travel-oriented platform allowing users to collect and relate attractions and hotels. The schemas include:
+
+1. **User**  
+   Stores the basic information of users including login credentials.
+
+2. **Collection_File**  
+   Represents a user's collection folder. A user can have multiple folders.
+
+3. **Item**  
+   An abstract representation of collectible entities. Each item can be either a hotel or an attraction.
+
+4. **Attraction**  
+   Contains detailed information about attractions, such as name, rating, image URL, description, and state.
+
+5. **Hotel**  
+   Similar to attractions, this table stores hotel-related information like name, rating, image URL, address, and description.
+
+6. **Collections**  
+   A many-to-many mapping between collection files and items. Each file can contain many items, and each item can appear in multiple files.
+
+7. **Relation**  
+   Represents the real-world relationship between attractions and nearby hotels. One attraction can be related to multiple hotels, and vice versa.
 
 ### 1.2 Table Creation Statements (DDL)
-- `CREATE TABLE` statements for each table (include field names, data types, etc.)
+```sql
+CREATE TABLE User (
+    id INT PRIMARY KEY,
+    name VARCHAR(20),
+    email VARCHAR(20),
+    password VARCHAR(20)
+);
+
+CREATE TABLE Collection_File (
+    file_id INT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
+
+CREATE TABLE Items (
+    item_id INT PRIMARY KEY,
+    type ENUM('attraction', 'hotel')
+);
+
+CREATE TABLE Attractions (
+    id INT PRIMARY KEY,
+    item_id INT,
+    name VARCHAR(20),
+    image_url VARCHAR(100),
+    rating DECIMAL(3,2),
+    description VARCHAR(200),
+    state VARCHAR(20),
+    FOREIGN KEY (item_id) REFERENCES Items(item_id)
+);
+
+CREATE TABLE Hotels (
+    id INT PRIMARY KEY,
+    item_id INT,
+    name VARCHAR(20),
+    image_url VARCHAR(100),
+    rating DECIMAL(3,2),
+    description VARCHAR(200),
+    address VARCHAR(100),
+    FOREIGN KEY (item_id) REFERENCES Items(item_id)
+);
+
+CREATE TABLE Collections (
+    file_id INT,
+    item_id INT,
+    PRIMARY KEY (file_id, item_id),
+    FOREIGN KEY (file_id) REFERENCES Collection_File(file_id),
+    FOREIGN KEY (item_id) REFERENCES Items(item_id)
+);
+
+CREATE TABLE Relations (
+    attraction_id INT,
+    hotel_id INT,
+    PRIMARY KEY (attraction_id, hotel_id),
+    FOREIGN KEY (attraction_id) REFERENCES Attractions(id),
+    FOREIGN KEY (hotel_id) REFERENCES Hotels(id)
+);
+```
 
 ### 1.3 Data Insertion
-- Description of inserting at least 1000 rows into each of 3 tables
-- Optional: Description of how the data was generated
+We ensured that the database is populated with **a rich set of data**, meeting the requirement of inserting **at least 1000 rows** into **3 or more tables**.
+
+#### Tables with 1000+ rows:
+- `Attraction`: Data was collected via web scraping from TripAdvisor, including real ratings, locations, and descriptions.
+- `Hotel`: Similarly, real hotel data including addresses and images were extracted and cleaned.
+- `Item`: Every attraction and hotel is linked to an `Item` row with type specified.
+- `Relation`: Multiple hotels were associated with nearby attractions using geographic or logical proximity to populate over 1000 valid relationships.
+
+#### 🔄 Supporting Data Generation:
+- `User`: Mock names, emails, and passwords were randomly generated.
+- `Collection_File`: Each user owns 1–3 folders.
+- `Collections`: Each folder stores random sets of items, mimicking real user behavior.
 
 ---
 
