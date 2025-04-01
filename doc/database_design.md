@@ -30,17 +30,24 @@ This query retrieves the top 15 hotels that have received the most collections f
 
 **SQL statement**  
 ```sql
-SELECT 
-    h.name, 
-    h.address,
-    COUNT(c.item_id) AS times_collected,
-    AVG(h.rating) AS avg_rating
-FROM Hotel h
-JOIN Item i ON h.item_id = i.item_id
-JOIN Collections c ON c.item_id = i.item_id
-WHERE h.rating > 4.0
-GROUP BY h.id
-ORDER BY times_collected DESC
+SELECT
+    a.state,
+    COUNT(DISTINCT a.location_id) AS total_attractions,
+    AVG(a.rating) AS avg_attraction_rating,
+    COUNT(DISTINCT h.id) AS total_hotels,
+    AVG(h.rating) AS avg_hotel_rating
+FROM
+    Attractions a
+JOIN
+    Relations r ON a.location_id = r.attraction_id
+JOIN
+    Hotels h ON r.hotel_id = h.id
+GROUP BY
+    a.state
+HAVING
+    COUNT(DISTINCT a.location_id) >= 3
+ORDER BY
+    avg_attraction_rating DESC
 LIMIT 15;
 ```
 **Query result**  
