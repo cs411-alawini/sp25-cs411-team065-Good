@@ -86,7 +86,8 @@ ORDER BY total_items DESC
 LIMIT 15;
 ```
 
-**Query result**  
+**Query 2 Result Note**  
+The result of this query includes only **2 rows**, instead of 15. This is because the user `'user1'` has relatively few saved collections. According to their usage pattern, they do not frequently browse or engage with the website, leading to fewer entries being retrieved in the query.
 ![URM](./imgs/Database_Design/query_2.png)
 
 ### 2.3 Query 3
