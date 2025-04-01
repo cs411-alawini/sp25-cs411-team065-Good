@@ -211,7 +211,23 @@ This index degraded performance due to the overhead of using the rating index in
 - We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.</br>
 
 ### 3.4 Index Analysis for Query 4
-- Same structure as above
+#### No index
+![URM](./imgs/Database_Design/index4_1.png)
+
+#### index Attractions.rating
+![URM](./imgs/Database_Design/index4_2.png)
+> explanation
+- Adding Attractions.rating only may cause the worst performance, the presence of the index caused the planner to overestimate the number of qualifying rows, leading to higher estimated costs for deduplication and sorting in the union operation.
+
+#### index Hotel.rating
+![URM](./imgs/Database_Design/index4_3.png)
+> explanantion
+- Indexing Hotels.rating resulted in the best performance. It is used very effectively, as the filtering condition was very selective, significantly reduced the number of rows early in the execution. 
+
+#### index Hotel.rating, Hotel.name
+![URM](./imgs/Database_Design/index4_4.png)
+> explanantion
+- We ultimately chose to use this composite index. Beside the benefit of indexing Hotel.rating, it also provides the covering index lookup for name, so the executor does not have the need to accessing the primary B+ tree, improving the efficiency.
 
 ---
 
