@@ -158,6 +158,7 @@ This query expands the basic user-collection lookup by also counting how many it
 - **LIMIT**: Returns only the first 15 rows
 
 **SQL statement**  
+
 ```sql
 SELECT
     u.name AS username,
@@ -278,9 +279,40 @@ This index degraded performance due to the overhead of using the rating index in
 
 ### 3.2 Index Analysis for Query 2
 
-- Same structure as above
+![URM](./imgs/Database_Design/index2_0.png)
+
+#### Baseline
+
+![URM](./imgs/Database_Design/index2_1.png)
+
+#### Index on User(name)
+
+![URM](./imgs/Database_Design/index2_2.png)
+
+##### Explanation
+
+This index greatly improves performance by enabling a direct index lookup on the User table instead of a full scan. This is especially useful in production settings where many users exist. It’s a good case where a selective WHERE clause benefits from indexing.
+
+#### Index on Collections(file_id)
+
+![URM](./imgs/Database_Design/index2_3.png)
+
+##### Explanation
+
+Although the optimizer uses the index, the gain is negligible due to the low data volume and the LEFT JOIN structure. Since most folders contain items, the LEFT JOIN doesn’t reduce scanned rows much, making the index less effective in this case.
+
+#### Index on Collection_File(file_id, user_id)
+
+![URM](./imgs/Database_Design/index2_4.png)
+
+##### Explanation
+
+This composite index allows MySQL to quickly locate relevant collection folders owned by the target user. Compared to relying on the existing user_id index, the combined index improves performance when used in conjunction with GROUP BY file_id and JOIN on user_id. Although the performance gain is minor due to the small dataset, this design shows a stronger alignment with the query’s access pattern than indexing unused metadata fields.
 
 ### 3.3 Index Analysis for Query 3
+
+![URM](./imgs/Database_Design/index3_0.png)
+
 #### Baseline
 ![URM](./imgs/Database_Design/index3_1.png)
 
@@ -303,6 +335,9 @@ It significantly reduces the search cost. Without the index, the subquery must p
 We ultimately chose to use a composite index. By including rating in the index, it enables a covering index lookup for the subquery. This allows the executor to retrieve the required rating values directly from the index, without accessing the primary B+ tree, which improves the efficiency of the MAX() aggregation.
 
 ### 3.4 Index Analysis for Query 4
+
+![URM](./imgs/Database_Design/index4_0.png)
+
 #### Baseline
 ![URM](./imgs/Database_Design/index4_1.png)
 
@@ -323,11 +358,4 @@ Indexing Hotels.rating resulted in the best performance. It is used very effecti
 ##### Explanation
 
 We ultimately chose to use this composite index. Beside the benefit of indexing Hotel.rating, it also provides the covering index lookup for name, so the executor does not have the need to accessing the primary B+ tree, improving the efficiency.
-
----
-
-## Part 4: Appendix
-
-### 4.1 Database Deployment Screenshot
-- Screenshot of terminal showing database creation locally or on GCP
 
