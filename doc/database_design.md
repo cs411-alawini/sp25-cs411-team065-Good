@@ -27,6 +27,9 @@ This database consists of **7 relational schemas** that together support a trave
 7. **Relations**  
    Represents the real-world relationship between attractions and nearby hotels. One attraction can be related to multiple hotels, and vice versa.
 
+screenshot of connection
+![connection_img](./imgs/Database_Design/connection.png)
+
 ### 1.2 Table Creation Statements (DDL)
 ```sql
 CREATE TABLE User (
@@ -91,12 +94,14 @@ CREATE TABLE Relations (
 We ensured that the database is populated with **a rich set of data**, meeting the requirement of inserting **at least 1000 rows** into **3 or more tables**.
 
 #### Tables with 1000+ rows:
-- `Attractions`: Data was collected via web scraping from TripAdvisor, including real ratings, locations, and descriptions.
 - `Hotels`: Similarly, real hotel data including addresses and images were extracted and cleaned.
 - `Items`: Every attraction and hotel is linked to an `Item` row with type specified.
 - `Relations`: Multiple hotels were associated with nearby attractions using geographic or logical proximity to populate over 1000 valid relationships.
 
-#### 🔄 Supporting Data Generation:
+screenshot:
+![count > 1000_img](./imgs/Database_Design/count.png)
+
+#### Supporting Data Generation:
 - `User`: Mock names, emails, and passwords were randomly generated.
 - `Collection_File`: Each user owns 1–3 folders.
 - `Collections`: Each folder stores random sets of items, mimicking real user behavior.
