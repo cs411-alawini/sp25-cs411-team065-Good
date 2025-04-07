@@ -1,0 +1,40 @@
+/target/
+**/target/
+**/build/
+*.log
+
+### Maven Wrapper ###
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper*.zip
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### Eclipse ###
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+nbbuild/
+nbproject/
+dist/
+.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
