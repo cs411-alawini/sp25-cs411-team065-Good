@@ -1,2 +1,37 @@
+### Java ###
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+### Maven ###
+.mvn/
+!mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### VS Code ###
+.vscode/
+
+### OS ###
 .DS_Store
 **/.DS_Store
+Thumbs.db
+
+### Logs ###
+*.log
+
+### Node.js / Frontend ###
+node_modules/
+dist/
+build/
+
+### Others ###
+/.env
+*.bak
+
