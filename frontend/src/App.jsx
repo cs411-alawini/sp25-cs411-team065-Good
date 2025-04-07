@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Search from './pages/Search';
+import Search from './pages/search/Search.jsx'; // 引入搜索页面
 
 function App() {
   return (

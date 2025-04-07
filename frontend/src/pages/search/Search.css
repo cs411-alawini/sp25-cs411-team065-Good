@@ -1,0 +1,17 @@
+.search-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  .search-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  
+  .card-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
