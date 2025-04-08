@@ -17,7 +17,7 @@ function Search() {
 
       try {
         // 向后端发请求，获取该 state 对应的景点数据
-        const response = await fetch(`/api/attractions?state=${state}`);
+        const response = await fetch(`http://localhost:8080/api/attractions/state?state=${state}`);
         const result = await response.json();
 
         if (result.code === 200) {
