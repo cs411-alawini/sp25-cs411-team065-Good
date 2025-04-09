@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="g65.repository.mapper.UserMapper">
+
+    <resultMap id="dataMap" type="g65.repository.po.UserPO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <select id="findUserByEmail"
+            parameterType="java.lang.String"
+            resultMap="dataMap">
+        select * from Users where email = #{email}
+    </select>
+</mapper>

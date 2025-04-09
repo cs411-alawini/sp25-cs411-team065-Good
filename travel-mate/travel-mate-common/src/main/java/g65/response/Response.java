@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Response<T> {
-    private Integer code;
+    private String code;
     private String msg;
     private T data;
 }

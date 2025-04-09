@@ -3,12 +3,10 @@ package g65.api;
 import g65.response.Response;
 import g65.vo.AttractionVO;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@RequestMapping("/api/attractions")
 public interface AttractionApi {
 
     /**

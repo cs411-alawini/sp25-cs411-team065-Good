@@ -20,6 +20,7 @@ travel-mate/
 - **Spring Boot**
 - **MyBatis**
 - **MySQL**
+- **Redis**
 - **Maven**
 
 ---

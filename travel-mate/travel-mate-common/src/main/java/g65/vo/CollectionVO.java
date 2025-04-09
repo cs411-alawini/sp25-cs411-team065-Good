@@ -1,9 +1,9 @@
-package g65.repository.po;
+package g65.vo;
 
 import lombok.Data;
 
 @Data
-public class CollectionsPO {
+public class CollectionVO {
     private Integer fileId;
     private Integer itemId;
 }

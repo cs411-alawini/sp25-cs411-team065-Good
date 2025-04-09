@@ -20,7 +20,6 @@ public class AttractionController implements AttractionApi {
 
     private final AttractionService attractionService;
 
-
     @Override
     public Response<List<AttractionVO>> getTopAttractionsByState(String state) {
         List<AttractionVO> attractionVOS = attractionService.getTopAttractionsByState(state);
