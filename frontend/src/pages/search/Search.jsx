@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom"; // 用于获取 URL 中的查询参数
-import Card from "../../components/search-card/search-card"; // 引入卡片组件
-import "./Search.css"; // 引入页面样式
+import { useSearchParams } from "react-router-dom"; 
+import Card from "../../components/search-card/search-card"; 
+import "./Search.css";
 
 function Search() {
   const [searchParams] = useSearchParams(); // 读取 URL 参数

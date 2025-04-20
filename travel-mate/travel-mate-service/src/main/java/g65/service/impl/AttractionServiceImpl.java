@@ -18,6 +18,7 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public List<AttractionVO> getTopAttractionsByState(String state) {
+        System.out.println(state);
         List<AttractionPO> attractionPOS = attractionRepository.findByStateOrderByRating(state);
         List<AttractionVO> attractionVOS = new ArrayList<>();
         for (AttractionPO attractionPO : attractionPOS) {

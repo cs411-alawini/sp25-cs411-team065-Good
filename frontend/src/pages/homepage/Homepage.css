@@ -1,0 +1,14 @@
+/* 在 App.css 或其他样式文件中 */
+.logo-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+.title {
+  margin-left: 3px;
+  font-size: 30px;
+  font-weight: bold;
+}
+  
+  
