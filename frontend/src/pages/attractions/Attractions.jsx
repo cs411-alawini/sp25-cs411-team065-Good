@@ -1,83 +1,247 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Typography, Image, Row, Col, Tag, message } from 'antd';
+import { Layout, Card, Typography, Image, Row, Col, Tag, message, Modal, Button, List } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
-
+import TopHeader from '../header/header.jsx';
 const { Title, Paragraph } = Typography;
+import mockUrl from '@/assets/illinois.png';
+import { useNavigate } from 'react-router-dom';
 
-const Attractions = () => {
+const DetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isFavorited, setIsFavorited] = useState(false);
   const [attraction, setAttraction] = useState(null);
   const [nearbyHotels, setNearbyHotels] = useState([]);
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [folderModalVisible, setFolderModalVisible] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleUserClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const handleSearch = (value) => {
+  if (value.trim()) {
+      navigate(`/search?query=${encodeURIComponent(value.trim())}`);
+  }
+  };
+
+  const UserMenu = ({ onLogout }) => (
+    <Menu>
+      <Menu.Item key="1">
+        <a href="/favorites">Favorite</a>
+      </Menu.Item>
+      <Menu.Item key="2" onClick={onLogout}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
+  
+  const userId = 1; // 替换为当前登录用户 ID
 
   const fetchAttraction = async () => {
-    try {
-      const res = await fetch(`/api/attractions?id=${id}`);
-      const data = await res.json();
-      setAttraction(data);
-      setIsFavorited(data.favorited || false);
-    } catch (err) {
-      console.error('Failed to fetch attraction:', err);
-    }
+    // try {
+    //   const res = await fetch(`/api/attractions?id=${id}`);
+    //   const data = await res.json();
+    //   setAttraction(data);
+    // } catch (err) {
+    //   console.error('Failed to fetch attraction:', err);
+    // }
+    setAttraction({
+      itemId: id,
+      name: 'Mock Attraction',
+      url: mockUrl,
+      rating: 8.7,
+      desc: 'This is a mock description of the attraction.'
+    });
+  };
+
+  const fetchFavoriteStatus = async () => {
+    // try {
+    //   const res = await fetch(`/api/user/status?itemId=${id}`);
+    //   const data = await res.json();
+    //   setIsFavorited(data.favorited);
+    // } catch (err) {
+    //   console.error('Failed to fetch favorite status:', err);
+    // }
+    setIsFavorited(false);
   };
 
   const fetchNearbyHotels = async () => {
-    try {
-      const res = await fetch(`/api/attractions/nearbyhotel?id=${id}`);
-      const data = await res.json();
-      setNearbyHotels(data);
-    } catch (err) {
-      console.error('Failed to fetch hotels:', err);
-    }
+    // try {
+    //   const res = await fetch(`/api/attractions/nearbyhotel?id=${id}`);
+    //   const data = await res.json();
+    //   setNearbyHotels(data);
+    // } catch (err) {
+    //   console.error('Failed to fetch hotels:', err);
+    // }
+    setNearbyHotels([
+      {
+        itemId: 'hotel1',
+        name: 'Mock Hotel One',
+        url: mockUrl,
+        rating: 9.0,
+        desc: 'A great mock hotel near the attraction.'
+      },
+      {
+        itemId: 'hotel2',
+        name: 'Mock Hotel Two',
+        url: mockUrl,
+        rating: 8.5,
+        desc: 'Another lovely hotel nearby.'
+      }
+    ]);
   };
 
-  const toggleFavorite = async () => {
+  const fetchFolders = async () => {
+    // try {
+    //   const res = await fetch(`/api/user/folder?userId=${userId}`);
+    //   const data = await res.json();
+    //   setFolders(data);
+    // } catch (err) {
+    //   console.error('Failed to fetch folders:', err);
+    // }
+    setFolders([
+      { folderId: 1, folderName: 'Mock Folder 1' },
+      { folderId: 2, folderName: 'Mock Folder 2' },
+      { folderId: 3, folderName: 'Mock Folder 3' }
+    ]);
+  };
+
+  const openFolderSelector = async (item) => {
+    setSelectedHotel(item);
+    await fetchFolders();
+    setFolderModalVisible(true);
+  };
+
+  const confirmAddToFolder = async () => {
+    if (!selectedFolderId) return message.warning('Please select a folder');
     try {
-      await fetch('/api/user/folder/addItem', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ itemId: attraction.itemId, folderId: 1 })
-      });
-      setIsFavorited((prev) => !prev);
+      // await fetch('/api/user/folder/addItem', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ itemId: attraction.itemId, folderId: selectedFolderId })
+      // });
+      // setIsFavorited(true);
+      // setFolderModalVisible(false);
+      // setIsFavorited(true);
+      // setFolderModalVisible(false);
+      // message.success('Added to folder successfully (mock)');
+      if (selectedHotel) {
+        // 是收藏酒店
+        setNearbyHotels((prev) =>
+          prev.map((h) =>
+            h.itemId === selectedHotel.itemId ? { ...h, favorited: true } : h
+          )
+        );
+      } else {
+        // 是收藏景点
+        setIsFavorited(true);
+      }
+      setFolderModalVisible(false);      
     } catch (err) {
-      console.error('Failed to toggle favorite:', err);
+      console.error('Failed to add to folder:', err);
       message.error('Failed to update favorite status');
     }
   };
 
+  const removeFromFolder = async (itemId) => {
+    try {
+      // 假设这是实际 API，也可以是 mock
+      await fetch(`/api/user/folder/removeItem`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ itemId }),
+      });
+      return true;
+    } catch (err) {
+      console.error('Failed to remove from folder:', err);
+      message.error('Fail to remove from folder');
+      return false;
+    }
+  };
+  
+
   useEffect(() => {
     fetchAttraction();
+    fetchFavoriteStatus();
     fetchNearbyHotels();
   }, [id]);
 
   if (!attraction) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: '32px' }}>
+    <Layout style={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', backgroundColor: '#f5f5f5' }}>
+    <TopHeader
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+        handleUserClick={handleUserClick}
+        UserMenu={UserMenu}
+        handleSearch={handleSearch}
+      />
+    <div style={{ padding: '32px', backgroundColor:'#f5f2eb' }}>
       {/* 景点区域 */}
-      <Row gutter={32}>
-        <Col span={16}>
-          <Title level={2}>
-            {attraction.name}
-            <Tag color="gold" style={{ marginLeft: 16, fontSize: 16 }}>{attraction.rating}</Tag>
-          </Title>
-          <Paragraph>{attraction.desc}</Paragraph>
-        </Col>
-        <Col span={8} style={{ textAlign: 'right' }}>
-          <Image width={200} src={attraction.url} />
-          <div style={{ marginTop: 12 }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px' }}>
+        {/* 景点信息区域 */}
+        <div style={{ marginBottom: '32px' }}>
+          {/* 名称 + 收藏 */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <Title level={2} style={{ margin: 0 }}>
+                {attraction.name}
+                <Tag color="gold" style={{ marginLeft: 16, fontSize: 16 }}>{attraction.rating}</Tag>
+              </Title>
+            </div>
+            <div>
             {isFavorited ? (
-              <HeartFilled onClick={toggleFavorite} style={{ fontSize: 24, color: 'red' }} />
+              <HeartFilled
+                style={{ fontSize: 24, color: 'red', cursor: 'pointer' }}
+                onClick={async () => {
+                  const ok = await removeFromFolder(attraction.itemId);
+                  if (ok) setIsFavorited(false);
+                }}
+              />
             ) : (
-              <HeartOutlined onClick={toggleFavorite} style={{ fontSize: 24, color: 'red' }} />
+              <HeartOutlined
+                onClick={() => openFolderSelector(null)}
+                style={{ fontSize: 24, color: 'red', cursor: 'pointer' }}
+              />
             )}
           </div>
-        </Col>
-      </Row>
+
+          </div>
+
+          {/* 描述 + 图片 */}
+          <div style={{ display: 'flex', gap: '24px', marginTop: '16px' }}>
+          <div style={{ flex: 1}}>
+              <Paragraph style={{ fontSize: 22 }}>{attraction.desc}</Paragraph>
+            </div>
+            <Image
+              src={attraction.url}
+              width={400}
+              height={250}
+              style={{ borderRadius: 4, objectFit: 'cover' }}
+            />
+          </div>
+        </div>
+      </div>
+
 
       {/* 酒店区域 */}
-      <Title level={4} style={{ marginTop: 48 }}>Nearby Hotels</Title>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '26px', backgroundColor: '#f8f8f8'}}>
+      <Title level={4} style={{ marginTop: 16, marginBottom: 24, fontSize: 24 }}>Nearby Hotels</Title>
+
 
       {nearbyHotels.map((hotel) => (
         <Card key={hotel.itemId} style={{ marginBottom: 16 }}>
@@ -86,21 +250,77 @@ const Attractions = () => {
               <Image width={120} src={hotel.url} />
             </Col>
             <Col span={17}>
-              <Title level={5} style={{ marginBottom: 4 }}>
+            <Title
+              level={5}
+              style={{
+                margin: 0,
+                lineHeight: '1',
+                display: 'inline-block',
+                verticalAlign: 'top',
+              }}
+            >
                 {hotel.name}
                 <span style={{ marginLeft: 16, fontSize: 16, color: '#666' }}>{hotel.rating}</span>
               </Title>
               <Paragraph style={{ marginBottom: 0 }}>{hotel.desc}</Paragraph>
             </Col>
             <Col span={1} style={{ textAlign: 'right' }}>
-              {/* 你可以加是否收藏状态控制 */}
-              <HeartOutlined style={{ fontSize: 20, color: 'red' }} />
+            {hotel.favorited ? (
+              <HeartFilled
+                style={{ fontSize: 20, color: 'red', cursor: 'pointer' }}
+                onClick={async () => {
+                  const ok = await removeFromFolder(hotel.itemId);
+                  if (ok) {
+                    setNearbyHotels((prev) =>
+                      prev.map((h) =>
+                        h.itemId === hotel.itemId ? { ...h, favorited: false } : h
+                      )
+                    );
+                  }
+                }}
+              />
+            ) : (
+              <HeartOutlined
+                style={{ fontSize: 20, color: 'red', cursor: 'pointer' }}
+                onClick={() => openFolderSelector(hotel)}
+              />
+            )}
             </Col>
           </Row>
         </Card>
       ))}
+
+      {/* 收藏夹弹窗 */}
+      <Modal
+        title="Please choose a folder"
+        visible={folderModalVisible}
+        onCancel={() => setFolderModalVisible(false)}
+        onOk={confirmAddToFolder}
+        okText="Confirm"
+        centered
+        bodyStyle={{ maxHeight: 300, overflowY: 'auto' }}
+      >
+        <List
+          dataSource={folders}
+          renderItem={(folder) => (
+            <List.Item
+              onClick={() => setSelectedFolderId(folder.folderId)}
+              style={{
+                border: '1px solid #ccc',
+                padding: '10px',
+                cursor: 'pointer',
+                backgroundColor: folder.folderId === selectedFolderId ? '#e6f7ff' : '#fff'
+              }}
+            >
+              {folder.folderName}
+            </List.Item>
+          )}
+        />
+      </Modal>
+      </div>
     </div>
+    </Layout>
   );
 };
 
-export default Attractions;
+export default DetailPage;
