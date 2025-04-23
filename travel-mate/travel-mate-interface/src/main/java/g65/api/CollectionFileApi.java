@@ -37,4 +37,17 @@ public interface CollectionFileApi {
      */
     @DeleteMapping("/files/{fileId}")
     Response<Void> deleteUserCollectionFile(@PathVariable("fileId") Integer fileId);
+
+    /**
+     * Deletes a single item from a specific collection folder.
+     *
+     * @param fileId the folder ID
+     * @param itemId the item ID to remove
+     * @return deletion success
+     */
+    @DeleteMapping("/files/{fileId}/items/{itemId}")
+    Response<Void> deleteCollectionItem(
+            @PathVariable("fileId") Integer fileId,
+            @PathVariable("itemId") Integer itemId
+    );
 }

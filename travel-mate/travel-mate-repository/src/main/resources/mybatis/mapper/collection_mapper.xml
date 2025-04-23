@@ -31,6 +31,13 @@
           AND cf.file_id = #{fileId}
     </select>
 
+    <delete id="deleteByFileIdAndItemId">
+        DELETE
+        FROM Collections
+        WHERE file_id = #{fileId}
+          AND item_id = #{itemId}
+    </delete>
+
 
 
 </mapper>

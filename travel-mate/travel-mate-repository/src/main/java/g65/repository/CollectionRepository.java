@@ -16,4 +16,8 @@ public class CollectionRepository {
     public List<AttractionPO> findByFileId(Integer fileId) {
         return collectionMapper.findByFileId(fileId);
     }
+
+    public void deleteByFileIdAndItemId(Integer fileId, Integer itemId) {
+        collectionMapper.deleteByFileIdAndItemId(fileId, itemId);
+    }
 }

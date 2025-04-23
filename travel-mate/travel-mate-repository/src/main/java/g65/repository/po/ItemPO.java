@@ -6,6 +6,7 @@ import lombok.Data;
 public class ItemPO {
     private Integer itemId;
     private ItemType type;
+    private Integer count;
 
     public enum ItemType {
         Attraction,

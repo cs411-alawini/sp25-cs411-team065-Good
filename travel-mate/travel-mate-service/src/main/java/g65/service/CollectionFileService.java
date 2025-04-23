@@ -23,5 +23,22 @@ public interface CollectionFileService {
      */
     void deleteUserCollectionFile(Integer userId, Integer fileId);
 
+    /**
+     * Retrieves all attractions that a user has collected in a given folder.
+     *
+     * @param userId the ID of the user whose collections are being queried
+     * @param fileId the ID of the collection folder
+     * @return a list of AttractionVO representing the attractions in that folder
+     */
     List<AttractionVO> getCollectionFileItems(Integer userId, Integer fileId);
+
+    /**
+     * Removes a single attraction from a user’s collection folder.
+     *
+     * @param userId the ID of the user performing the deletion
+     * @param fileId the ID of the collection folder containing the attraction
+     * @param itemId the ID of the attraction to remove
+     */
+    void deleteCollectionItem(Integer userId, Integer fileId, Integer itemId);
 }
+

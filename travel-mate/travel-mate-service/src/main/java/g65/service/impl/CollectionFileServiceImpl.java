@@ -11,6 +11,7 @@ import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,6 @@ public class CollectionFileServiceImpl implements CollectionFileService {
     }
 
     @Override
-    public void deleteUserCollectionFile(Integer userId, Integer fileId) {
-        collectionFileRepository.deleteByUserIdAndFileId(userId, fileId);
-    }
-
-    @Override
     public List<AttractionVO> getCollectionFileItems(Integer userId, Integer fileId) {
         if (collectionFileRepository.countByUserIdAndFileId(userId, fileId) == 0) {
             throw new BizException(ResponseCode.PERMISSION_DENIED);
@@ -62,5 +58,20 @@ public class CollectionFileServiceImpl implements CollectionFileService {
             attractionVOS.add(attractionVO);
         }
         return attractionVOS;
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserCollectionFile(Integer userId, Integer fileId) {
+        collectionFileRepository.deleteByUserIdAndFileId(userId, fileId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCollectionItem(Integer userId, Integer fileId, Integer itemId) {
+        if (collectionFileRepository.countByUserIdAndFileId(userId, fileId) == 0) {
+            throw new BizException(ResponseCode.PERMISSION_DENIED);
+        }
+        collectionRepository.deleteByFileIdAndItemId(fileId, itemId);
     }
 }
