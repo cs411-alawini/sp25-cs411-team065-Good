@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +35,29 @@ public class AttractionServiceImpl implements AttractionService {
             attractionVOS.add(attractionVO);
         }
         return attractionVOS;
+    }
+
+    @Override
+    public List<AttractionVO> getTopRatedAttractions(Integer n) {
+        List<AttractionPO> attractionPOS = attractionRepository.findTopRated(n);
+        List<AttractionVO> attractionVOS = new ArrayList<>();
+        for (AttractionPO attractionPO : attractionPOS) {
+            AttractionVO attractionVO = AttractionVO.builder()
+                    .locationId(attractionPO.getLocationId())
+                    .itemId(attractionPO.getItemId())
+                    .name(attractionPO.getName())
+                    .imageUrl(attractionPO.getImageUrl())
+                    .rating(attractionPO.getRating())
+                    .description(attractionPO.getDescription())
+                    .state(attractionPO.getState())
+                    .build();
+            attractionVOS.add(attractionVO);
+        }
+        return attractionVOS;
+    }
+
+    @Override
+    public Long countByState(String state) {
+        return attractionRepository.countByState(state);
     }
 }
