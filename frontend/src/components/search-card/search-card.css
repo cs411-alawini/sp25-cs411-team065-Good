@@ -1,63 +1,89 @@
 .card {
-    display: flex;
-    gap: 20px;
-    padding: 16px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    margin-bottom: 24px;
-    align-items: flex-start;
-  }
-  
-  .card-image {
-    flex-shrink: 0;
-    width: 160px;
-    height: 120px;
-    overflow: hidden;
-    border-radius: 8px;
-    margin: 0;
-  }
-  
-  .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .card-header {
-    margin-bottom: 8px;
-  }
-  
-  .card-header .title {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-    color: #222;
-  }
-  
-  .card-header .rating {
-    font-size: 14px;
-    color: #666;
-    margin-top: 4px;
-    font-style: italic;
-  }
-  
-  .description {
-    font-size: 16px;
-    color: #444;
-    line-height: 1.5;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* 最多显示3行 */
-    -webkit-box-orient: vertical;
-  }
-  
+  width: 100%;
+  max-width: 800px; /* 可选，避免超宽 */
+  display: flex;
+  gap: 20px;
+  padding: 16px;
+  background-color: #fff;
+  /* border-radius: 12px; */
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); */
+  margin-bottom: 24px;
+  align-items: flex-start;
+  position: relative; /* ✅ 缺了这个，::after 会定位错地方 */
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -12px;
+  height: 1.5px;
+  background: linear-gradient(to right, #ccc, #eee);
+  opacity: 0.8;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* 🔹 hover 效果：分隔线动画 + 卡片微抬起 */
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card:hover::after {
+  border-radius: 999px; /* ⬅️ 圆润的关键 */
+  height: 3px; /* ✅ 分隔线变粗 */
+  transform: scaleX(1.05);
+  background: linear-gradient(to right, #c2cee2, #3e73b4); /* 动态蓝光渐变 */
+}
+
+.card-image {
+  flex-shrink: 0;
+  width: 160px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  margin-bottom: 8px;
+}
+
+.card-header .title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: #222;
+}
+
+.card-header .rating {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.description {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 最多显示3行 */
+  -webkit-box-orient: vertical;
+}

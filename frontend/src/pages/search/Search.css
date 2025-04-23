@@ -1,17 +1,18 @@
 .search-page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 24px;
-  }
-  
-  .search-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 24px;
-  }
-  
-  .card-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
+  background-color: aliceblue;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column; /* ✅ 垂直布局，标题和卡片上下排列 */
+  align-items: center; /* ✅ 子元素在水平方向居中（可选） */
+}
+
+.search-title {
+  width: 100%;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+  color: black;
+}
