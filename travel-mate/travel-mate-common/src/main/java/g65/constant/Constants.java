@@ -14,4 +14,20 @@ public class Constants {
     public static class RedisKey {
         public static final String LOGIN_TOKEN = "login_token_";
     }
+
+
+    /**
+     * Auth-related constants like interceptor exclude paths.
+     */
+    public static class Auth {
+        public static final String[] EXCLUDE_PATHS = {
+                "/api/user/login",
+                "/api/user/register",
+                "/api/attractions/state",
+                "/api/attractions/top-rated",
+                "/api/attractions/count"
+        };
+    }
+
+
 }

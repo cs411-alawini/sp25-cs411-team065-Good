@@ -14,4 +14,8 @@ public class UserRepository {
     public UserPO findUserByEmail(String email) {
         return userMapper.findUserByEmail(email);
     }
+
+    public void saveUser(UserPO userPO) {
+        userMapper.saveUser(userPO);
+    }
 }

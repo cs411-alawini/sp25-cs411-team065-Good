@@ -1,11 +1,20 @@
-package g65.dto;/**
- * @projectName:    travel-mate 
- * @package:        g65.dto
- * @className:      RegisterRequestDTO
- * @author:     Peregrine Calder
- * @description:  TODO  
- * @date:    2025/4/22 16:16
- * @version:    1.0
- */ 
+package g65.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Data
 public class RegisterRequestDTO {
+
+    @NotBlank(message = "Name cannot be blank")
+    private String name;
+
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @NotBlank(message = "Password cannot be blank")
+    private String password;
+
 }

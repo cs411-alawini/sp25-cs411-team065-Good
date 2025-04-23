@@ -16,4 +16,12 @@ public class AttractionRepository {
     public List<AttractionPO> findByStateOrderByRating(String state) {
         return attractionMapper.queryAttractionListByStateOrderByRating(state);
     }
+
+    public List<AttractionPO> findTopRated(Integer n) {
+        return attractionMapper.queryTopRatedAttractions(n);
+    }
+
+    public Long countByState(String state) {
+        return attractionMapper.countByState(state);
+    }
 }

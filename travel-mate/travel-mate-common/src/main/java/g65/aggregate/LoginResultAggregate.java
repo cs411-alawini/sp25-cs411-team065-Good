@@ -1,11 +1,12 @@
-package g65.aggregate;/**
- * @projectName:    travel-mate 
- * @package:        g65.aggregate
- * @className:      LoginResultAggregate
- * @author:     Peregrine Calder
- * @description:  TODO  
- * @date:    2025/4/22 17:27
- * @version:    1.0
- */ 
+package g65.aggregate;
+
+import g65.vo.UserVO;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class LoginResultAggregate {
+    private String token;
+    private UserVO user;
 }

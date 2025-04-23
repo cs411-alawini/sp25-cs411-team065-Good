@@ -5,5 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
+
     UserPO findUserByEmail(String email);
+
+    void saveUser(UserPO user);
 }

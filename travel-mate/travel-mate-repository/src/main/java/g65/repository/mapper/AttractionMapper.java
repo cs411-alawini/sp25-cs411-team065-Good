@@ -8,5 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface AttractionMapper {
+
     List<AttractionPO> queryAttractionListByStateOrderByRating(String state);
+
+    List<AttractionPO> queryTopRatedAttractions(Integer n);
+
+    Long countByState(String state);
+
 }

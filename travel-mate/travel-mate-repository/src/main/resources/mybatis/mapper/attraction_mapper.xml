@@ -15,6 +15,15 @@
     <select id="queryAttractionListByStateOrderByRating"
             parameterType="java.lang.String"
             resultMap="dataMap">
-        select * from Attractions where state = #{state} order by rating desc limit 10
+        select * from Attractions where state = #{state} order by rating desc
     </select>
+
+    <select id="queryTopRatedAttractions" parameterType="int" resultMap="dataMap">
+        select * from Attractions order by rating desc limit #{n}
+    </select>
+
+    <select id="countByState" parameterType="string" resultType="long">
+        select COUNT(*) from Attractions where state = #{state}
+    </select>
+
 </mapper>

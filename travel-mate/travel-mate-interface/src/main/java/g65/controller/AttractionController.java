@@ -7,14 +7,12 @@ import g65.service.AttractionService;
 import g65.vo.AttractionVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/attractions")
 @RequiredArgsConstructor
 public class AttractionController implements AttractionApi {
 
@@ -27,6 +25,26 @@ public class AttractionController implements AttractionApi {
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())
                 .data(attractionVOS)
+                .build();
+    }
+
+    @Override
+    public Response<List<AttractionVO>> getTopRatedAttractions(Integer n) {
+        List<AttractionVO> topAttractions = attractionService.getTopRatedAttractions(n);
+        return Response.<List<AttractionVO>>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(topAttractions)
+                .build();
+    }
+
+    @Override
+    public Response<Long> getAttractionCountByState(String state) {
+        Long count = attractionService.countByState(state);
+        return Response.<Long>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(count)
                 .build();
     }
 }
