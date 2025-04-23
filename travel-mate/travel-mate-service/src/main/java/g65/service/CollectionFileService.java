@@ -13,4 +13,12 @@ public interface CollectionFileService {
      * @return list of collected file VOs
      */
     List<CollectionFileVO> getUserCollectionFiles(Integer userId);
+
+    /**
+     * Deletes the specified collected file for the user.
+     *
+     * @param userId current user ID
+     * @param fileId ID of the collected file to remove
+     */
+    void deleteUserCollectionFile(Integer userId, Integer fileId);
 }

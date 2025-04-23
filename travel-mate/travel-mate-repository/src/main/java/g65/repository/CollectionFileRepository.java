@@ -16,4 +16,8 @@ public class CollectionFileRepository {
     public List<CollectionFilePO> findByUserId(Integer userId) {
         return collectionFileMapper.findByUserId(userId);
     }
+
+    public void deleteByUserIdAndFileId(Integer userId, Integer fileId) {
+        collectionFileMapper.deleteUserCollectionFile(userId, fileId);
+    }
 }

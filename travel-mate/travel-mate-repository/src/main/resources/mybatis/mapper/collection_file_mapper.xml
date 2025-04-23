@@ -14,4 +14,9 @@
         select * from Collection_File where user_id = #{userId}
     </select>
 
+    <delete id="deleteUserCollectionFile">
+        delete from Collection_File where file_id = #{fileId} and user_id = #{userId}
+    </delete>
+
+
 </mapper>

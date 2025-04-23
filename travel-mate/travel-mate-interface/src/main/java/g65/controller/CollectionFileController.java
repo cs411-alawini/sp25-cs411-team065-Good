@@ -35,4 +35,17 @@ public class CollectionFileController implements CollectionFileApi {
                 .data(files)
                 .build();
     }
+
+    @Override
+    public Response<Void> deleteUserCollectionFile(Integer fileId) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) {
+            throw new BizException(ResponseCode.UNAUTHORIZED);
+        }
+        collectionFileService.deleteUserCollectionFile(userId, fileId);
+        return Response.<Void>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .build();
+    }
 }
