@@ -1,6 +1,7 @@
 package g65.api;
 
 import g65.response.Response;
+import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,15 @@ public interface CollectionFileApi {
      */
     @GetMapping("/files")
     Response<List<CollectionFileVO>> getUserCollectionFiles();
+
+    /**
+     * Retrieves the items (e.g., attractions) collected inside a specific folder.
+     *
+     * @param fileId the ID of the collection folder
+     * @return a standardized response containing a list of collected items
+     */
+    @GetMapping("/files/{fileId}/items")
+    Response<List<AttractionVO>> getCollectionFileItems(@PathVariable("fileId") Integer fileId);
 
     /**
      * Deletes a file from the current user's collection.

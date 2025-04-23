@@ -15,8 +15,11 @@
     </select>
 
     <delete id="deleteUserCollectionFile">
-        delete from Collection_File where file_id = #{fileId} and user_id = #{userId}
+        delete from Collection_File where user_id = #{userId} and file_id = #{fileId}
     </delete>
 
+    <select id="countByUserIdAndFileId" resultType="int">
+        select count(1) from Collection_File where user_id = #{userId} and file_id = #{fileId}
+    </select>
 
 </mapper>

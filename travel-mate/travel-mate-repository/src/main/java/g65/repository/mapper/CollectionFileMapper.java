@@ -13,4 +13,7 @@ public interface CollectionFileMapper {
 
     void deleteUserCollectionFile(@Param("userId") Integer userId,
                                  @Param("fileId") Integer fileId);
+
+    int countByUserIdAndFileId(@Param("userId") Integer userId,
+                               @Param("fileId") Integer fileId);
 }

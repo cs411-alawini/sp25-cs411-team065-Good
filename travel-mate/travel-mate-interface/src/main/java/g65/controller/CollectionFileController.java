@@ -6,6 +6,7 @@ import g65.response.Response;
 import g65.response.ResponseCode;
 import g65.service.CollectionFileService;
 import g65.util.UserContext;
+import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,20 @@ public class CollectionFileController implements CollectionFileApi {
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())
                 .data(files)
+                .build();
+    }
+
+    @Override
+    public Response<List<AttractionVO>> getCollectionFileItems(Integer fileId) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) {
+            throw new BizException(ResponseCode.UNAUTHORIZED);
+        }
+        List<AttractionVO> items = collectionFileService.getCollectionFileItems(userId, fileId);
+        return Response.<List<AttractionVO>>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(items)
                 .build();
     }
 

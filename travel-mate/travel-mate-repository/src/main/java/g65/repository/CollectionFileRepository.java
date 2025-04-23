@@ -20,4 +20,8 @@ public class CollectionFileRepository {
     public void deleteByUserIdAndFileId(Integer userId, Integer fileId) {
         collectionFileMapper.deleteUserCollectionFile(userId, fileId);
     }
+
+    public int countByUserIdAndFileId(Integer userId, Integer fileId) {
+        return collectionFileMapper.countByUserIdAndFileId(userId, fileId);
+    }
 }

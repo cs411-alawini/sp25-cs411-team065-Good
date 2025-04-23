@@ -2,9 +2,12 @@ package g65.service.impl;
 
 import g65.exception.BizException;
 import g65.repository.CollectionFileRepository;
+import g65.repository.CollectionRepository;
+import g65.repository.po.AttractionPO;
 import g65.repository.po.CollectionFilePO;
 import g65.response.ResponseCode;
 import g65.service.CollectionFileService;
+import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import java.util.List;
 public class CollectionFileServiceImpl implements CollectionFileService {
 
     private final CollectionFileRepository collectionFileRepository;
+    private final CollectionRepository collectionRepository;
 
     @Override
     public List<CollectionFileVO> getUserCollectionFiles(Integer userId) {
@@ -36,5 +40,27 @@ public class CollectionFileServiceImpl implements CollectionFileService {
     @Override
     public void deleteUserCollectionFile(Integer userId, Integer fileId) {
         collectionFileRepository.deleteByUserIdAndFileId(userId, fileId);
+    }
+
+    @Override
+    public List<AttractionVO> getCollectionFileItems(Integer userId, Integer fileId) {
+        if (collectionFileRepository.countByUserIdAndFileId(userId, fileId) == 0) {
+            throw new BizException(ResponseCode.PERMISSION_DENIED);
+        }
+        List<AttractionPO> items = collectionRepository.findByFileId(fileId);
+        List<AttractionVO> attractionVOS = new ArrayList<>();
+        for (AttractionPO item : items) {
+            AttractionVO attractionVO = AttractionVO.builder()
+                    .locationId(item.getLocationId())
+                    .itemId(item.getItemId())
+                    .name(item.getName())
+                    .imageUrl(item.getImageUrl())
+                    .rating(item.getRating())
+                    .description(item.getDescription())
+                    .state(item.getState())
+                    .build();
+            attractionVOS.add(attractionVO);
+        }
+        return attractionVOS;
     }
 }

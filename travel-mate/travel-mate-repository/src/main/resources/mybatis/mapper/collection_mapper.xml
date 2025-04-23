@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="g65.repository.mapper.CollectionMapper">
+
+    <resultMap id="attractionMap" type="g65.repository.po.AttractionPO">
+        <id column="location_id" property="locationId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="name" property="name"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="rating" property="rating"/>
+        <result column="description" property="description"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+    <select id="findByFileId"
+            parameterType="java.lang.Integer"
+            resultMap="attractionMap">
+        SELECT
+            a.location_id   AS location_id,
+            c.item_id       AS item_id,
+            a.name          AS name,
+            a.image_url     AS image_url,
+            a.rating        AS rating,
+            a.description   AS description,
+            a.state         AS state
+        FROM Collection_File cf
+                 JOIN Collections  c ON cf.file_id = c.file_id
+                 JOIN Items        i ON c.item_id  = i.item_id
+                 JOIN Attractions  a ON i.item_id  = a.item_id
+        WHERE i.type = 'attraction'
+          AND cf.file_id = #{fileId}
+    </select>
+
+
+
+</mapper>
