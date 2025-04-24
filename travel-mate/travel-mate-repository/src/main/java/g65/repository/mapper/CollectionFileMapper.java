@@ -16,4 +16,7 @@ public interface CollectionFileMapper {
 
     int countByUserIdAndFileId(@Param("userId") Integer userId,
                                @Param("fileId") Integer fileId);
+
+    void insert(CollectionFilePO collectionFilePO);
+
 }

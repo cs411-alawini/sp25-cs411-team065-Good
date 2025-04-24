@@ -1,6 +1,7 @@
 package g65.controller;
 
 import g65.api.CollectionFileApi;
+import g65.dto.CreateFolderRequestDTO;
 import g65.exception.BizException;
 import g65.response.Response;
 import g65.response.ResponseCode;
@@ -22,6 +23,18 @@ import java.util.List;
 public class CollectionFileController implements CollectionFileApi {
 
     private final CollectionFileService collectionFileService;
+
+    @Override
+    public Response<CollectionFileVO> createCollectionFolder(CreateFolderRequestDTO request) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) throw new BizException(ResponseCode.UNAUTHORIZED);
+        CollectionFileVO created = collectionFileService.createCollectionFolder(userId, request.getName());
+        return Response.<CollectionFileVO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(created)
+                .build();
+    }
 
     @Override
     public Response<List<CollectionFileVO>> getUserCollectionFiles() {
@@ -69,6 +82,18 @@ public class CollectionFileController implements CollectionFileApi {
         Integer userId = UserContext.getUserId();
         if (userId == null) throw new BizException(ResponseCode.UNAUTHORIZED);
         collectionFileService.deleteCollectionItem(userId, fileId, itemId);
+        return Response.<Void>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .build();
+    }
+
+    @Override
+    public Response<Void> addCollectionItem(Integer fileId, Integer itemId) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) throw new BizException(ResponseCode.UNAUTHORIZED);
+
+        collectionFileService.addCollectionItem(userId, fileId, itemId);
         return Response.<Void>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())

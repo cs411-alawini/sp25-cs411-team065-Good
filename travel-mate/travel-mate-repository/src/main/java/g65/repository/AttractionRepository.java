@@ -24,4 +24,8 @@ public class AttractionRepository {
     public Long countByState(String state) {
         return attractionMapper.countByState(state);
     }
+
+    public AttractionPO findByLocationId(Integer locationId) {
+        return attractionMapper.findByLocationId(locationId);
+    }
 }

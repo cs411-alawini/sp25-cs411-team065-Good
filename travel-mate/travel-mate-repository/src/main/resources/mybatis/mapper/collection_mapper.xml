@@ -38,6 +38,18 @@
           AND item_id = #{itemId}
     </delete>
 
+    <insert id="insertMapping">
+        INSERT INTO Collections (file_id, item_id)
+        VALUES (#{fileId}, #{itemId})
+    </insert>
 
+    <select id="countByUserIdAndItemId"
+            resultType="int">
+        SELECT COUNT(1)
+        FROM Collections c
+                 JOIN Collection_File cf ON c.file_id = cf.file_id
+        WHERE cf.user_id = #{userId}
+          AND c.item_id = #{itemId}
+    </select>
 
 </mapper>

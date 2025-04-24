@@ -24,4 +24,8 @@ public class CollectionFileRepository {
     public int countByUserIdAndFileId(Integer userId, Integer fileId) {
         return collectionFileMapper.countByUserIdAndFileId(userId, fileId);
     }
+
+    public void insert(CollectionFilePO collectionFilePO) {
+        collectionFileMapper.insert(collectionFilePO);
+    }
 }

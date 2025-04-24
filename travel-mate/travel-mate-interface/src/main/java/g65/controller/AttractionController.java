@@ -47,4 +47,14 @@ public class AttractionController implements AttractionApi {
                 .data(count)
                 .build();
     }
+
+    @Override
+    public Response<AttractionVO> getAttractionById(Integer locationId) {
+        AttractionVO attractionVO = attractionService.getAttractionById(locationId);
+        return Response.<AttractionVO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(attractionVO)
+                .build();
+    }
 }

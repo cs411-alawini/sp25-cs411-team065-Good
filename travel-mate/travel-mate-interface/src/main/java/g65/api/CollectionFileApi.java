@@ -1,16 +1,24 @@
 package g65.api;
 
+import g65.dto.CreateFolderRequestDTO;
 import g65.response.Response;
 import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RequestMapping("/api/collection_file")
 public interface CollectionFileApi {
+
+    /**
+     * Creates a new collection folder for the current user.
+     *
+     * @param request DTO containing the name for the new folder
+     * @return a standardized response containing the created folder's details
+     */
+    @PostMapping("/files")
+    Response<CollectionFileVO> createCollectionFolder(@RequestBody CreateFolderRequestDTO request);
 
     /**
      * Retrieves the list of files collected by the current user.
@@ -47,6 +55,19 @@ public interface CollectionFileApi {
      */
     @DeleteMapping("/files/{fileId}/items/{itemId}")
     Response<Void> deleteCollectionItem(
+            @PathVariable("fileId") Integer fileId,
+            @PathVariable("itemId") Integer itemId
+    );
+
+    /**
+     * Adds an attraction into a specific collection folder for the current user.
+     *
+     * @param fileId the collection-folder ID
+     * @param itemId the attraction (item) ID to add
+     * @return a standardized response indicating success
+     */
+    @PostMapping("/files/{fileId}/items/{itemId}")
+    Response<Void> addCollectionItem(
             @PathVariable("fileId") Integer fileId,
             @PathVariable("itemId") Integer itemId
     );

@@ -14,6 +14,16 @@
 
     <select id="queryAllHotel"
             resultMap="dataMap">
-        select * from Hotel limit 10
+        select * from Hotels limit 10
+    </select>
+
+    <select id="findByAttractionId"
+            parameterType="java.lang.Integer"
+            resultMap="dataMap">
+        SELECT *
+        FROM Relations r
+                 JOIN Hotels h
+                      ON r.hotel_id = h.id
+        WHERE r.attraction_id = #{attractionId}
     </select>
 </mapper>

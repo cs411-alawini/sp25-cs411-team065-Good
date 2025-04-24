@@ -74,4 +74,31 @@ public class CollectionFileServiceImpl implements CollectionFileService {
         }
         collectionRepository.deleteByFileIdAndItemId(fileId, itemId);
     }
+
+    @Override
+    @Transactional
+    public CollectionFileVO createCollectionFolder(Integer userId, String name) {
+        CollectionFilePO collectionFilePO = CollectionFilePO.builder()
+                .userId(userId)
+                .name(name)
+                .build();
+        collectionFileRepository.insert(collectionFilePO);
+        return CollectionFileVO.builder()
+                .fileId(collectionFilePO.getFileId())
+                .userId(userId)
+                .name(name)
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public void addCollectionItem(Integer userId, Integer fileId, Integer itemId) {
+        if (collectionFileRepository.countByUserIdAndFileId(userId, fileId) == 0) {
+            throw new BizException(ResponseCode.PERMISSION_DENIED);
+        }
+        int inserted = collectionRepository.insertMapping(fileId, itemId);
+        if (inserted == 0) {
+            throw new BizException(ResponseCode.BAD_REQUEST);
+        }
+    }
 }

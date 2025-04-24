@@ -1,7 +1,9 @@
 package g65.service.impl;
 
+import g65.exception.BizException;
 import g65.repository.AttractionRepository;
 import g65.repository.po.AttractionPO;
+import g65.response.ResponseCode;
 import g65.service.AttractionService;
 import g65.vo.AttractionVO;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +61,22 @@ public class AttractionServiceImpl implements AttractionService {
     @Override
     public Long countByState(String state) {
         return attractionRepository.countByState(state);
+    }
+
+    @Override
+    public AttractionVO getAttractionById(Integer locationId) {
+        AttractionPO po = attractionRepository.findByLocationId(locationId);
+        if (po == null) {
+            throw new BizException(ResponseCode.NOT_FOUND);
+        }
+        return AttractionVO.builder()
+                .locationId(po.getLocationId())
+                .itemId(po.getItemId())
+                .name(po.getName())
+                .imageUrl(po.getImageUrl())
+                .rating(po.getRating())
+                .description(po.getDescription())
+                .state(po.getState())
+                .build();
     }
 }

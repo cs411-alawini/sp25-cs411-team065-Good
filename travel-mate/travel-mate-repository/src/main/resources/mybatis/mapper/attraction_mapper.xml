@@ -26,4 +26,12 @@
         select COUNT(*) from Attractions where state = #{state}
     </select>
 
+    <select id="findByLocationId"
+            parameterType="java.lang.Integer"
+            resultMap="dataMap">
+        SELECT *
+        FROM Attractions
+        WHERE location_id = #{locationId}
+    </select>
+
 </mapper>

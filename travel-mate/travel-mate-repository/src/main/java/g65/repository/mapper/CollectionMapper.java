@@ -12,4 +12,10 @@ public interface CollectionMapper {
 
     void deleteByFileIdAndItemId(@Param("fileId") Integer fileId,
                                 @Param("itemId") Integer itemId);
+
+    int insertMapping(@Param("fileId") Integer fileId,
+                      @Param("itemId") Integer itemId);
+
+    int countByUserIdAndItemId(@Param("userId") Integer userId,
+                               @Param("fileId") Integer itemId);
 }

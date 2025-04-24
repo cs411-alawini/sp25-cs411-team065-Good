@@ -22,4 +22,12 @@
         select count(1) from Collection_File where user_id = #{userId} and file_id = #{fileId}
     </select>
 
+    <insert id="insert"
+            parameterType="g65.repository.po.CollectionFilePO"
+            useGeneratedKeys="true"
+            keyProperty="fileId">
+        INSERT INTO Collection_File (user_id, name)
+        VALUES (#{userId}, #{name})
+    </insert>
+
 </mapper>

@@ -40,5 +40,23 @@ public interface CollectionFileService {
      * @param itemId the ID of the attraction to remove
      */
     void deleteCollectionItem(Integer userId, Integer fileId, Integer itemId);
+
+    /**
+     * Creates a new collection folder for the specified user.
+     *
+     * @param userId the ID of the user for whom the folder is being created
+     * @param name   the desired name of the new collection folder
+     * @return       a VO representing the newly created folder, including its generated fileId
+     */
+    CollectionFileVO createCollectionFolder(Integer userId, String name);
+
+    /**
+     * Adds an item (attraction) to a user’s collection folder.
+     *
+     * @param userId the current user’s ID
+     * @param fileId the collection folder’s ID
+     * @param itemId the attraction’s ID
+     */
+    void addCollectionItem(Integer userId, Integer fileId, Integer itemId);
 }
 

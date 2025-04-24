@@ -3,6 +3,7 @@ package g65.api;
 import g65.response.Response;
 import g65.vo.AttractionVO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
@@ -37,4 +38,13 @@ public interface AttractionApi {
      */
     @GetMapping("/count")
     Response<Long> getAttractionCountByState(@RequestParam("state") String state);
+
+    /**
+     * Retrieves detailed information for a specific attraction by its ID.
+     *
+     * @param locationId the unique ID of the attraction
+     * @return a standardized response containing the attraction details
+     */
+    @GetMapping("/{locationId}")
+    Response<AttractionVO> getAttractionById(@PathVariable("locationId") Integer locationId);
 }

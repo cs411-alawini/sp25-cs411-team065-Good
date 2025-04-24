@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class CollectionRepository {
-    private final CollectionMapper collectionMapper;
 
+    private final CollectionMapper collectionMapper;
 
     public List<AttractionPO> findByFileId(Integer fileId) {
         return collectionMapper.findByFileId(fileId);
@@ -19,5 +19,13 @@ public class CollectionRepository {
 
     public void deleteByFileIdAndItemId(Integer fileId, Integer itemId) {
         collectionMapper.deleteByFileIdAndItemId(fileId, itemId);
+    }
+
+    public int insertMapping(Integer fileId, Integer itemId) {
+        return collectionMapper.insertMapping(fileId, itemId);
+    }
+
+    public int countByUserIdAndItemId(Integer userId, Integer itemId) {
+        return collectionMapper.countByUserIdAndItemId(userId, itemId);
     }
 }

@@ -3,6 +3,7 @@ package g65.repository.mapper;
 
 import g65.repository.po.AttractionPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface AttractionMapper {
 
     Long countByState(String state);
 
+    AttractionPO findByLocationId(@Param("locationId") Integer locationId);
 }
