@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aqua;
+}
+
+.login-form{
+    background-color: #f0f0f0;
+    border: 2px solid #aab8cd;
+    padding: 30px 80px;
+    border-radius: 10px;
+}
+
+.jump-to-signup{
+    margin: 10px auto;
+    text-align: center;
+}

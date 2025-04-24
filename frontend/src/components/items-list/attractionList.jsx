@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import Card from "../search-card/search-card";
+import Card from "../item-card/item-card";
 import "./attractionList.css";
 
 const BATCH_SIZE = 10;

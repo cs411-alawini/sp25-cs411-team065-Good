@@ -1,9 +1,11 @@
 import React from "react";
-import "./search-card.css";
+import "./item-card.css";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ item }) => {
+  const navigate = useNavigate();
   return (
-    <div className="card">
+    <div className="card" onClick={() => navigate(`/attraction/${item.locationId}`)}>
       {/* 图片 */}
       <figure className="card-image">
         <img src={item.imageUrl || "/img/default-image.jpg"} alt={item.name} />
