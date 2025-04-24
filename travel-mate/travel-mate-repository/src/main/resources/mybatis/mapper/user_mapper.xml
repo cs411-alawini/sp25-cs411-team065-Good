@@ -12,11 +12,11 @@
     <select id="findUserByEmail"
             parameterType="java.lang.String"
             resultMap="dataMap">
-        select * from Users where email = #{email}
+        select * from User where email = #{email}
     </select>
 
     <insert id="saveUser" parameterType="g65.repository.po.UserPO">
-        insert into Users (name, email, password)
+        insert into User (name, email, password)
         values (#{name}, #{email}, #{password})
     </insert>
 
