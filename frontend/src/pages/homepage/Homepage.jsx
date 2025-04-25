@@ -73,7 +73,7 @@ const HomePage = () => {
 
     const handleSearch = (value) => {
     if (value.trim()) {
-        navigate(`/search?query=${encodeURIComponent(value.trim())}`);
+        navigate(`/search?state=${encodeURIComponent(value.trim())}`);
     }
     };
 
