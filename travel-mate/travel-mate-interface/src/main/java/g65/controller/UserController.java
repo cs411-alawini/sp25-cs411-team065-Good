@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-
 public class UserController implements UserApi {
 
     private final UserService userService;
