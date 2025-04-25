@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService {
         log.info("[UserLogout] Logout success. UserId: {}, Token: {}", userId, token);
     }
 
+    @Transactional
     @Override
     public LoginResultAggregate registerAndLogin(String name, String email, String password) {
         UserPO exists = userRepository.findUserByEmail(email);
