@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, Checkbox, Form, Input, message } from "antd";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css"; // 引入样式
 
 const Login = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // 获取当前的 location，用于读取跳转前页面
+  //const location = useLocation(); // 获取当前的 location，用于读取跳转前页面
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    //console.log("Success:", values);
 
     try {
       // 假设这是后端登录接口
@@ -20,15 +20,18 @@ const Login = () => {
 
       const result = await res.json();
 
-      if (result.code === 200) {
-        const sessionId = result.sessionId;
+      if (result.code === "200") {
+        const sessionId = result.data.token;
         localStorage.setItem("sessionId", sessionId);
+<<<<<<< Updated upstream
         console.log(sessionId);
+=======
+        //console.log("sessionId from response:", sessionId);
+>>>>>>> Stashed changes
         message.success("Login successful!");
 
         // 👇 登录前想去的页面（如 /search?state=Illinois）
-        const from = location.state?.from?.pathname || "/";
-        navigate(from, { replace: true });
+        navigate("/homePage");
       } else {
         message.error(result.msg || "Login failed");
       }
@@ -72,7 +75,7 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item name="remember" valuePropName="checked" label={null}>
-          <Checkbox>Remember me()</Checkbox>
+          <Checkbox>Remember me(keep log in within 7 days)</Checkbox>
         </Form.Item>
 
         <Form.Item label={null}>

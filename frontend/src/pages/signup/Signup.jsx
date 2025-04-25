@@ -7,7 +7,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    console.log("Register values:", values);
+    //console.log("Register values:", values);
 
     try {
       const res = await fetch("http://localhost:8080/api/user/register", {
@@ -18,9 +18,11 @@ const Signup = () => {
 
       const result = await res.json();
 
-      if (result.code === 200) {
-        message.success("Register successful! Please log in.");
-        navigate("/login");
+      if (result.code === "200") {
+        const sessionId = result.data.token;
+        localStorage.setItem("sessionId", sessionId);
+        //message.success("Register successful! Please log in.");
+        navigate("/homePage");
       } else {
         message.error(result.msg || "Register failed");
       }
@@ -48,7 +50,7 @@ const Signup = () => {
       >
         <Form.Item
           label="Username"
-          name="username"
+          name="name"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
