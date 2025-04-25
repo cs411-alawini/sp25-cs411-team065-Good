@@ -101,4 +101,24 @@ public class CollectionFileServiceImpl implements CollectionFileService {
             throw new BizException(ResponseCode.BAD_REQUEST);
         }
     }
+
+    @Override
+    @Transactional
+    public CollectionFileVO renameCollectionFolder(Integer userId, Integer fileId, String newName) {
+        int count = collectionFileRepository.countByUserIdAndFileId(userId, fileId);
+        if (count == 0) {
+            throw new BizException(ResponseCode.PERMISSION_DENIED);
+        }
+
+        int updated = collectionFileRepository.updateNameByUserIdAndFileId(userId, fileId, newName);
+        if (updated == 0) {
+            throw new BizException(ResponseCode.SERVER_ERROR);
+        }
+
+        return CollectionFileVO.builder()
+                .fileId(fileId)
+                .userId(userId)
+                .name(newName)
+                .build();
+    }
 }

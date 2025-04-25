@@ -1,9 +1,11 @@
 package g65.api;
 
 import g65.dto.CreateFolderRequestDTO;
+import g65.dto.RenameFolderRequestDTO;
 import g65.response.Response;
 import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,5 +72,18 @@ public interface CollectionFileApi {
     Response<Void> addCollectionItem(
             @PathVariable("fileId") Integer fileId,
             @PathVariable("itemId") Integer itemId
+    );
+
+    /**
+     * Renames an existing collection folder for the current user.
+     *
+     * @param fileId the ID of the folder to rename
+     * @param request  DTO containing the new folder name
+     * @return the updated folder details
+     */
+    @PutMapping("/files/{fileId}")
+    Response<CollectionFileVO> renameFolder(
+            @PathVariable("fileId") Integer fileId,
+            @RequestBody @Valid RenameFolderRequestDTO request
     );
 }

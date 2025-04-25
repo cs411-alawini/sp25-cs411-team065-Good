@@ -19,4 +19,7 @@ public interface CollectionFileMapper {
 
     void insert(CollectionFilePO collectionFilePO);
 
+    int updateNameByUserIdAndFileId(@Param("userId") Integer userId,
+                                    @Param("fileId") Integer fileId,
+                                    @Param("newName") String newName);
 }

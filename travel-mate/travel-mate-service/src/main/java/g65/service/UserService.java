@@ -14,7 +14,7 @@ public interface UserService {
      * @return a LoginResultAggregate containing the generated token and user information
      * @throws BizException if the email is not found or the password is incorrect
      */
-    LoginResultAggregate login(String email, String password);
+    LoginResultAggregate login(String email, String password, boolean rememberMe);
 
     /**
      * Logs out the current user by invalidating their authentication token in Redis.

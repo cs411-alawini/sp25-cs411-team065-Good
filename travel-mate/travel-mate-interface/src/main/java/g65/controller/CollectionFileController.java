@@ -2,6 +2,7 @@ package g65.controller;
 
 import g65.api.CollectionFileApi;
 import g65.dto.CreateFolderRequestDTO;
+import g65.dto.RenameFolderRequestDTO;
 import g65.exception.BizException;
 import g65.response.Response;
 import g65.response.ResponseCode;
@@ -97,6 +98,23 @@ public class CollectionFileController implements CollectionFileApi {
         return Response.<Void>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())
+                .build();
+    }
+
+    @Override
+    public Response<CollectionFileVO> renameFolder(Integer fileId, RenameFolderRequestDTO request) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) {
+            throw new BizException(ResponseCode.UNAUTHORIZED);
+        }
+        log.info("[RenameFolder] userId={}, fileId={}, newName={}",
+                userId, fileId, request.getName());
+
+        CollectionFileVO updated = collectionFileService.renameCollectionFolder(userId, fileId, request.getName());
+        return Response.<CollectionFileVO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
+                .data(updated)
                 .build();
     }
 }

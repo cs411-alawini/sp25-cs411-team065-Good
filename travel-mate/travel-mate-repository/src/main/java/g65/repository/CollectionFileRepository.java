@@ -28,4 +28,8 @@ public class CollectionFileRepository {
     public void insert(CollectionFilePO collectionFilePO) {
         collectionFileMapper.insert(collectionFilePO);
     }
+
+    public int updateNameByUserIdAndFileId(Integer userId, Integer fileId, String newName) {
+        return collectionFileMapper.updateNameByUserIdAndFileId(userId, fileId, newName);
+    }
 }

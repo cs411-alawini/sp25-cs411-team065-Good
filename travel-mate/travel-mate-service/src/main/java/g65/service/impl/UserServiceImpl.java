@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     private final StringRedisTemplate stringRedisTemplate;
 
     @Override
-    public LoginResultAggregate login(String email, String password) {
+    public LoginResultAggregate login(String email, String password, boolean rememberMe) {
         UserPO userPO = userRepository.findUserByEmail(email);
         if (userPO == null) {
             log.warn("[UserLogin] Login failed. Email not found: {}", email);
@@ -45,7 +45,14 @@ public class UserServiceImpl implements UserService {
                 .email(userPO.getEmail())
                 .build();
         log.info("[UserLogin] Login success. UserId: {}, Token: {}", userPO.getId(), token);
-        stringRedisTemplate.opsForValue().set(Constants.RedisKey.LOGIN_TOKEN + token, userPO.getId().toString(), 30, TimeUnit.MINUTES);
+
+        long timeout = rememberMe ? 7L : 30L;
+        TimeUnit unit = rememberMe ? TimeUnit.DAYS : TimeUnit.MINUTES;
+        stringRedisTemplate.opsForValue()
+                .set(Constants.RedisKey.LOGIN_TOKEN + token,
+                        userPO.getId().toString(),
+                        timeout,
+                        unit);
         return LoginResultAggregate.builder()
                 .token(token)
                 .user(userVO)
@@ -77,6 +84,6 @@ public class UserServiceImpl implements UserService {
                 .build();
         userRepository.saveUser(userPO);
         log.info("[UserRegister] Register success. Email: {}, Name: {}", email, name);
-        return login(email, password);
+        return login(email, password, false);
     }
 }

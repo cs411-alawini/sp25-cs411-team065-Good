@@ -30,4 +30,11 @@
         VALUES (#{userId}, #{name})
     </insert>
 
+    <update id="updateNameByUserIdAndFileId">
+        UPDATE Collection_File
+        SET name = #{newName}
+        WHERE user_id = #{userId}
+          AND file_id = #{fileId}
+    </update>
+
 </mapper>

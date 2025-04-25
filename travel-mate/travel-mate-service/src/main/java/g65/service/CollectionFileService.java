@@ -58,5 +58,16 @@ public interface CollectionFileService {
      * @param itemId the attraction’s ID
      */
     void addCollectionItem(Integer userId, Integer fileId, Integer itemId);
+
+
+    /**
+     * Renames a collection folder belonging to a user.
+     *
+     * @param userId   the ID of the current user
+     * @param fileId the ID of the folder to rename
+     * @param newName  the new folder name
+     * @return the updated folder VO
+     */
+    CollectionFileVO renameCollectionFolder(Integer userId, Integer fileId, String newName);
 }
 

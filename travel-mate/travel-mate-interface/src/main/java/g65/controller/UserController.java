@@ -29,7 +29,10 @@ public class UserController implements UserApi {
     @Override
     public Response<LoginResponseDTO> login(LoginRequestDTO request) {
         log.info("[UserLogin] Login attempt with email: {}", request.getEmail());
-        LoginResultAggregate loginResultAggregate = userService.login(request.getEmail(), request.getPassword());
+        LoginResultAggregate loginResultAggregate = userService.login(
+                request.getEmail(),
+                request.getPassword(),
+                request.isRememberMe());
         return Response.<LoginResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())
