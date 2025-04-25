@@ -169,6 +169,10 @@ const DetailPage = () => {
     fetchAttraction();
     fetchFavoriteStatus();
     fetchNearbyHotels();
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
   }, [id]);
 
   if (!attraction) return <div>Loading...</div>;

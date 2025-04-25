@@ -23,7 +23,7 @@ const Login = () => {
       if (result.code === 200) {
         const sessionId = result.sessionId;
         localStorage.setItem("sessionId", sessionId);
-
+        console.log(sessionId);
         message.success("Login successful!");
 
         // 👇 登录前想去的页面（如 /search?state=Illinois）

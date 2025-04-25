@@ -83,8 +83,9 @@ const HomePage = () => {
         states.map(async (state) => {
           try {
             const res = await fetch(`http://localhost:8080/api/attractions/count?state=${encodeURIComponent(state.name)}`);
-            const data = await res.json();
-            return { ...state, count: data.count };
+            const whole = await res.json();
+            const data = whole.data; 
+            return { ...state, count: data };
           } catch (err) {
             console.error(`Failed to fetch count for ${state.name}:`, err);
             return { ...state, count: 0 };
@@ -94,6 +95,11 @@ const HomePage = () => {
       setStates(updated);
     };
     fetchCounts();
+    const token = localStorage.getItem("sessionId");
+    console.log(token);
+    if (token) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
