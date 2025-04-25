@@ -50,6 +50,7 @@ public class AttractionController implements AttractionApi {
 
     @Override
     public Response<AttractionVO> getAttractionById(Integer locationId) {
+        System.out.println(locationId);
         AttractionVO attractionVO = attractionService.getAttractionById(locationId);
         return Response.<AttractionVO>builder()
                 .code(ResponseCode.SUCCESS.getCode())

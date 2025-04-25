@@ -52,7 +52,7 @@ const DetailPage = () => {
 
   const fetchAttraction = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/attractions?id=${id}`);
+      const res = await fetch(`http://localhost:8080/api/attractions/${id}`);
       const data = await res.json();
       setAttraction(data);
     } catch (err) {
@@ -80,8 +80,8 @@ const DetailPage = () => {
 
   const fetchNearbyHotels = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/attractions/nearbyhotel?id=${id}`);
-      const data = await res.json();
+      const res = await fetch(`http://localhost:8080/api/hotels/by-attraction/${id}`);
+      const data = await res.json().data;
       setNearbyHotels(data);
     } catch (err) {
       console.error('Failed to fetch hotels:', err);
@@ -242,7 +242,7 @@ const DetailPage = () => {
       <Title level={4} style={{ marginTop: 16, marginBottom: 24, fontSize: 24 }}>Nearby Hotels</Title>
 
 
-      {nearbyHotels.map((hotel) => (
+      {/* {nearbyHotels.map((hotel) => (
         <Card key={hotel.itemId} style={{ marginBottom: 16 }}>
           <Row gutter={16} align="middle">
             <Col span={6}>
@@ -287,7 +287,7 @@ const DetailPage = () => {
             </Col>
           </Row>
         </Card>
-      ))}
+      ))} */}
 
       {/* 收藏夹弹窗 */}
       <Modal
