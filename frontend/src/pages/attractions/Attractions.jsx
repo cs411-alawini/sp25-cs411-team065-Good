@@ -19,7 +19,7 @@ const DetailPage = () => {
   const [selectedFolderId, setSelectedFolderId] = useState(null);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const token = localStorage.getItem('token');
   const handleUserClick = () => {
     if (!isLoggedIn) {
       navigate('/login');
@@ -48,65 +48,50 @@ const DetailPage = () => {
   );
 
   
-  const userId = 1; // 替换为当前登录用户 ID
+  const userId = 1;
 
   const fetchAttraction = async () => {
     try {
       const res = await fetch(`http://localhost:8080/api/attractions/${id}`);
-      const data = await res.json();
+      const whole = await res.json();
+      const data = whole.data;
       setAttraction(data);
     } catch (err) {
       console.error('Failed to fetch attraction:', err);
     }
-    // setAttraction({
-    //   itemId: id,
-    //   name: 'Mock Attraction',
-    //   url: mockUrl,
-    //   rating: 8.7,
-    //   desc: 'This is a mock description of the attraction.'
-    // });
   };
 
   const fetchFavoriteStatus = async () => {
-    try {
-      const res = await fetch(`http://localhost:8080/api/user/status?itemId=${id}`);
-      const data = await res.json();
-      setIsFavorited(data.favorited);
-    } catch (err) {
-      console.error('Failed to fetch favorite status:', err);
-    }
-    // setIsFavorited(false);
+    // try {
+    //   const res = await fetch(`http://localhost:8080/api/collection/items/{itemId}/exists`);
+    //   const data = await res.json();
+    //   setIsFavorited(data.favorited);
+    // } catch (err) {
+    //   console.error('Failed to fetch favorite status:', err);
+    // }
+    setIsFavorited(false);
   };
 
   const fetchNearbyHotels = async () => {
     try {
       const res = await fetch(`http://localhost:8080/api/hotels/by-attraction/${id}`);
-      const data = await res.json().data;
+      const whole = await res.json();
+      const data = whole.data;        
       setNearbyHotels(data);
     } catch (err) {
       console.error('Failed to fetch hotels:', err);
     }
-    // setNearbyHotels([
-    //   {
-    //     itemId: 'hotel1',
-    //     name: 'Mock Hotel One',
-    //     url: mockUrl,
-    //     rating: 9.0,
-    //     desc: 'A great mock hotel near the attraction.'
-    //   },
-    //   {
-    //     itemId: 'hotel2',
-    //     name: 'Mock Hotel Two',
-    //     url: mockUrl,
-    //     rating: 8.5,
-    //     desc: 'Another lovely hotel nearby.'
-    //   }
-    // ]);
   };
 
   const fetchFolders = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/user/folder?userId=${userId}`);
+      const res = await fetch(`http://localhost:8080/api/collection_file/files`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });      
       const data = await res.json();
       setFolders(data);
     } catch (err) {
@@ -126,18 +111,19 @@ const DetailPage = () => {
   };
 
   const confirmAddToFolder = async () => {
-    if (!selectedFolderId) return message.warning('Please select a folder');
+    if (!selectedFolderId) 
+      return message.warning('Please select a folder');
     try {
-      // await fetch('/api/user/folder/addItem', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ itemId: attraction.itemId, folderId: selectedFolderId })
-      // });
-      // setIsFavorited(true);
-      // setFolderModalVisible(false);
-      // setIsFavorited(true);
-      // setFolderModalVisible(false);
-      // message.success('Added to folder successfully (mock)');
+      const itemId = selectedHotel?.itemId || attraction.itemId;
+      await fetch(`/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+    
+      // 更新收藏状态
       if (selectedHotel) {
         // 是收藏酒店
         setNearbyHotels((prev) =>
@@ -146,10 +132,14 @@ const DetailPage = () => {
           )
         );
       } else {
-        // 是收藏景点
         setIsFavorited(true);
       }
-      setFolderModalVisible(false);      
+    
+      // 关闭弹窗
+      setFolderModalVisible(false);
+    
+      // 成功提示
+      message.success('Added to folder successfully');
     } catch (err) {
       console.error('Failed to add to folder:', err);
       message.error('Failed to update favorite status');
@@ -158,10 +148,13 @@ const DetailPage = () => {
 
   const removeFromFolder = async (itemId) => {
     try {
-      await fetch(`http://localhost:8080/api/user/folder/removeItem`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ itemId }),
+      const itemId = selectedHotel?.itemId || attraction.itemId;
+      await fetch(`/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       });
       return true;
     } catch (err) {
@@ -193,7 +186,7 @@ const DetailPage = () => {
       {/* 景点区域 */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px' }}>
         {/* 景点信息区域 */}
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: '30px' }}>
           {/* 名称 + 收藏 */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
@@ -224,10 +217,10 @@ const DetailPage = () => {
           {/* 描述 + 图片 */}
           <div style={{ display: 'flex', gap: '24px', marginTop: '16px' }}>
           <div style={{ flex: 1}}>
-              <Paragraph style={{ fontSize: 22 }}>{attraction.desc}</Paragraph>
+              <Paragraph style={{ fontSize: 20 }}>{attraction.description}</Paragraph>
             </div>
             <Image
-              src={attraction.url}
+              src={attraction.imageUrl}
               width={400}
               height={250}
               style={{ borderRadius: 4, objectFit: 'cover' }}
@@ -242,11 +235,11 @@ const DetailPage = () => {
       <Title level={4} style={{ marginTop: 16, marginBottom: 24, fontSize: 24 }}>Nearby Hotels</Title>
 
 
-      {/* {nearbyHotels.map((hotel) => (
+      {nearbyHotels.map((hotel) => (
         <Card key={hotel.itemId} style={{ marginBottom: 16 }}>
           <Row gutter={16} align="middle">
             <Col span={6}>
-              <Image width={120} src={hotel.url} />
+              <Image width={120} src={hotel.imageUrl} />
             </Col>
             <Col span={17}>
             <Title
@@ -261,7 +254,7 @@ const DetailPage = () => {
                 {hotel.name}
                 <span style={{ marginLeft: 16, fontSize: 16, color: '#666' }}>{hotel.rating}</span>
               </Title>
-              <Paragraph style={{ marginBottom: 0 }}>{hotel.desc}</Paragraph>
+              <Paragraph style={{ marginBottom: 0 }}>{hotel.description}</Paragraph>
             </Col>
             <Col span={1} style={{ textAlign: 'right' }}>
             {hotel.favorited ? (
@@ -287,7 +280,7 @@ const DetailPage = () => {
             </Col>
           </Row>
         </Card>
-      ))} */}
+      ))}
 
       {/* 收藏夹弹窗 */}
       <Modal
