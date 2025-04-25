@@ -23,11 +23,7 @@ const Login = () => {
       if (result.code === "200") {
         const sessionId = result.data.token;
         localStorage.setItem("sessionId", sessionId);
-<<<<<<< Updated upstream
-        console.log(sessionId);
-=======
         //console.log("sessionId from response:", sessionId);
->>>>>>> Stashed changes
         message.success("Login successful!");
 
         // 👇 登录前想去的页面（如 /search?state=Illinois）
