@@ -25,7 +25,9 @@ public class Constants {
                 "/api/user/register",
                 "/api/attractions/state",
                 "/api/attractions/top-rated",
-                "/api/attractions/count"
+                "/api/attractions/count",
+                "/api/attractions/*",
+                "/api/hotels/by-attraction/*"
         };
     }
 
