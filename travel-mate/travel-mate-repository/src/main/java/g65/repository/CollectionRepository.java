@@ -17,8 +17,8 @@ public class CollectionRepository {
         return collectionMapper.findByFileId(fileId);
     }
 
-    public void deleteByFileIdAndItemId(Integer fileId, Integer itemId) {
-        collectionMapper.deleteByFileIdAndItemId(fileId, itemId);
+    public void deleteByFileIdAndItemId(Integer fileId, List<Integer> collectionItemIds) {
+        collectionMapper.deleteByFileIdAndItemId(fileId, collectionItemIds);
     }
 
     public int insertMapping(Integer fileId, Integer itemId) {

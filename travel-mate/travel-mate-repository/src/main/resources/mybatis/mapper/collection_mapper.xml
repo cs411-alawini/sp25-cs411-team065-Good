@@ -35,7 +35,10 @@
         DELETE
         FROM Collections
         WHERE file_id = #{fileId}
-          AND item_id = #{itemId}
+        AND item_id IN
+        <foreach collection="itemIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 
     <insert id="insertMapping">

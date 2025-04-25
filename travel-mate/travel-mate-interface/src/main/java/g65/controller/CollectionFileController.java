@@ -2,6 +2,7 @@ package g65.controller;
 
 import g65.api.CollectionFileApi;
 import g65.dto.CreateFolderRequestDTO;
+import g65.dto.DeleteItemRequestDTO;
 import g65.dto.RenameFolderRequestDTO;
 import g65.exception.BizException;
 import g65.response.Response;
@@ -79,10 +80,10 @@ public class CollectionFileController implements CollectionFileApi {
     }
 
     @Override
-    public Response<Void> deleteCollectionItem(Integer fileId, Integer itemId) {
+    public Response<Void> deleteCollectionItem(Integer fileId, DeleteItemRequestDTO request) {
         Integer userId = UserContext.getUserId();
         if (userId == null) throw new BizException(ResponseCode.UNAUTHORIZED);
-        collectionFileService.deleteCollectionItem(userId, fileId, itemId);
+        collectionFileService.deleteCollectionItem(userId, fileId, request.getItems());
         return Response.<Void>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())

@@ -1,6 +1,7 @@
 package g65.api;
 
 import g65.dto.CreateFolderRequestDTO;
+import g65.dto.DeleteItemRequestDTO;
 import g65.dto.RenameFolderRequestDTO;
 import g65.response.Response;
 import g65.vo.AttractionVO;
@@ -52,13 +53,13 @@ public interface CollectionFileApi {
      * Deletes a single item from a specific collection folder.
      *
      * @param fileId the folder ID
-     * @param itemId the item ID to remove
+     * @param request the item IDs to remove
      * @return deletion success
      */
-    @DeleteMapping("/files/{fileId}/items/{itemId}")
+    @DeleteMapping("/files/{fileId}/items")
     Response<Void> deleteCollectionItem(
             @PathVariable("fileId") Integer fileId,
-            @PathVariable("itemId") Integer itemId
+            @RequestBody DeleteItemRequestDTO request
     );
 
     /**

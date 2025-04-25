@@ -37,9 +37,9 @@ public interface CollectionFileService {
      *
      * @param userId the ID of the user performing the deletion
      * @param fileId the ID of the collection folder containing the attraction
-     * @param itemId the ID of the attraction to remove
+     * @param collectionItemIds the ID of the attraction to remove
      */
-    void deleteCollectionItem(Integer userId, Integer fileId, Integer itemId);
+    void deleteCollectionItem(Integer userId, Integer fileId, List<Integer> collectionItemIds);
 
     /**
      * Creates a new collection folder for the specified user.

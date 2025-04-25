@@ -68,11 +68,11 @@ public class CollectionFileServiceImpl implements CollectionFileService {
 
     @Override
     @Transactional
-    public void deleteCollectionItem(Integer userId, Integer fileId, Integer itemId) {
+    public void deleteCollectionItem(Integer userId, Integer fileId, List<Integer> collectionItemIds) {
         if (collectionFileRepository.countByUserIdAndFileId(userId, fileId) == 0) {
             throw new BizException(ResponseCode.PERMISSION_DENIED);
         }
-        collectionRepository.deleteByFileIdAndItemId(fileId, itemId);
+        collectionRepository.deleteByFileIdAndItemId(fileId, collectionItemIds);
     }
 
     @Override

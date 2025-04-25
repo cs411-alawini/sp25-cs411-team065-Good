@@ -11,7 +11,7 @@ public interface CollectionMapper {
     List<AttractionPO> findByFileId(@Param("fileId") Integer fileId);
 
     void deleteByFileIdAndItemId(@Param("fileId") Integer fileId,
-                                @Param("itemId") Integer itemId);
+                                 @Param("itemIds") List<Integer> itemIds);
 
     int insertMapping(@Param("fileId") Integer fileId,
                       @Param("itemId") Integer itemId);
