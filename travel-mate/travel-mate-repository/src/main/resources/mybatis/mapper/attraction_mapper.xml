@@ -3,7 +3,7 @@
 <mapper namespace="g65.repository.mapper.AttractionMapper">
 
     <resultMap id="dataMap" type="g65.repository.po.AttractionPO">
-        <id column="location_id" property="locationId"/>
+        <id column="id" property="locationId"/>
         <result column="item_id" property="itemId"/>
         <result column="name" property="name"/>
         <result column="image_url" property="imageUrl"/>
@@ -31,7 +31,7 @@
             resultMap="dataMap">
         SELECT *
         FROM Attractions
-        WHERE location_id = #{locationId}
+        WHERE id = #{locationId}
     </select>
 
 </mapper>
