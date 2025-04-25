@@ -5,7 +5,18 @@ import logo from '@/assets/logo.png';
 const { Header } = Layout;
 const { Search } = Input;
 
+const userMenuItems = [
+  {
+    key: 'logout',
+    label: 'Logout',
+  },
+];
 
+const handleMenuClick = ({ key }) => {
+  if (key === 'logout') {
+    handleLogout();
+  }
+};
 
 const TopHeader = ({ isLoggedIn, handleLogout, handleUserClick, UserMenu, handleSearch}) => {
   return (
@@ -33,14 +44,20 @@ const TopHeader = ({ isLoggedIn, handleLogout, handleUserClick, UserMenu, handle
       </div>
 
       <div style={{ flexShrink: 0 }}>
-        {isLoggedIn ? (
-          <Dropdown overlay={<UserMenu onLogout={handleLogout} />} placement="bottomRight">
-            <Avatar icon={<UserOutlined />} style={{ cursor: 'pointer' }} />
-          </Dropdown>
-        ) : (
-          <Avatar icon={<UserOutlined />} onClick={handleUserClick} style={{ cursor: 'pointer' }} />
-        )}
-      </div>
+      {isLoggedIn ? (
+        <Dropdown
+          menu={{
+            items: userMenuItems,
+            onClick: handleMenuClick,
+          }}
+          placement="bottomRight"
+        >
+          <Avatar icon={<UserOutlined />} style={{ cursor: 'pointer' }} />
+        </Dropdown>
+      ) : (
+        <Avatar icon={<UserOutlined />} onClick={handleUserClick} style={{ cursor: 'pointer' }} />
+      )}
+    </div>
     </Header>
   );
 };
