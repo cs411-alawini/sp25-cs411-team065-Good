@@ -51,72 +51,72 @@ const DetailPage = () => {
   const userId = 1; // 替换为当前登录用户 ID
 
   const fetchAttraction = async () => {
-    // try {
-    //   const res = await fetch(`/api/attractions?id=${id}`);
-    //   const data = await res.json();
-    //   setAttraction(data);
-    // } catch (err) {
-    //   console.error('Failed to fetch attraction:', err);
-    // }
-    setAttraction({
-      itemId: id,
-      name: 'Mock Attraction',
-      url: mockUrl,
-      rating: 8.7,
-      desc: 'This is a mock description of the attraction.'
-    });
+    try {
+      const res = await fetch(`http://localhost:8080/api/attractions?id=${id}`);
+      const data = await res.json();
+      setAttraction(data);
+    } catch (err) {
+      console.error('Failed to fetch attraction:', err);
+    }
+    // setAttraction({
+    //   itemId: id,
+    //   name: 'Mock Attraction',
+    //   url: mockUrl,
+    //   rating: 8.7,
+    //   desc: 'This is a mock description of the attraction.'
+    // });
   };
 
   const fetchFavoriteStatus = async () => {
-    // try {
-    //   const res = await fetch(`/api/user/status?itemId=${id}`);
-    //   const data = await res.json();
-    //   setIsFavorited(data.favorited);
-    // } catch (err) {
-    //   console.error('Failed to fetch favorite status:', err);
-    // }
-    setIsFavorited(false);
+    try {
+      const res = await fetch(`http://localhost:8080/api/user/status?itemId=${id}`);
+      const data = await res.json();
+      setIsFavorited(data.favorited);
+    } catch (err) {
+      console.error('Failed to fetch favorite status:', err);
+    }
+    // setIsFavorited(false);
   };
 
   const fetchNearbyHotels = async () => {
-    // try {
-    //   const res = await fetch(`/api/attractions/nearbyhotel?id=${id}`);
-    //   const data = await res.json();
-    //   setNearbyHotels(data);
-    // } catch (err) {
-    //   console.error('Failed to fetch hotels:', err);
-    // }
-    setNearbyHotels([
-      {
-        itemId: 'hotel1',
-        name: 'Mock Hotel One',
-        url: mockUrl,
-        rating: 9.0,
-        desc: 'A great mock hotel near the attraction.'
-      },
-      {
-        itemId: 'hotel2',
-        name: 'Mock Hotel Two',
-        url: mockUrl,
-        rating: 8.5,
-        desc: 'Another lovely hotel nearby.'
-      }
-    ]);
+    try {
+      const res = await fetch(`http://localhost:8080/api/attractions/nearbyhotel?id=${id}`);
+      const data = await res.json();
+      setNearbyHotels(data);
+    } catch (err) {
+      console.error('Failed to fetch hotels:', err);
+    }
+    // setNearbyHotels([
+    //   {
+    //     itemId: 'hotel1',
+    //     name: 'Mock Hotel One',
+    //     url: mockUrl,
+    //     rating: 9.0,
+    //     desc: 'A great mock hotel near the attraction.'
+    //   },
+    //   {
+    //     itemId: 'hotel2',
+    //     name: 'Mock Hotel Two',
+    //     url: mockUrl,
+    //     rating: 8.5,
+    //     desc: 'Another lovely hotel nearby.'
+    //   }
+    // ]);
   };
 
   const fetchFolders = async () => {
-    // try {
-    //   const res = await fetch(`/api/user/folder?userId=${userId}`);
-    //   const data = await res.json();
-    //   setFolders(data);
-    // } catch (err) {
-    //   console.error('Failed to fetch folders:', err);
-    // }
-    setFolders([
-      { folderId: 1, folderName: 'Mock Folder 1' },
-      { folderId: 2, folderName: 'Mock Folder 2' },
-      { folderId: 3, folderName: 'Mock Folder 3' }
-    ]);
+    try {
+      const res = await fetch(`http://localhost:8080/api/user/folder?userId=${userId}`);
+      const data = await res.json();
+      setFolders(data);
+    } catch (err) {
+      console.error('Failed to fetch folders:', err);
+    }
+    // setFolders([
+    //   { folderId: 1, folderName: 'Mock Folder 1' },
+    //   { folderId: 2, folderName: 'Mock Folder 2' },
+    //   { folderId: 3, folderName: 'Mock Folder 3' }
+    // ]);
   };
 
   const openFolderSelector = async (item) => {
@@ -158,8 +158,7 @@ const DetailPage = () => {
 
   const removeFromFolder = async (itemId) => {
     try {
-      // 假设这是实际 API，也可以是 mock
-      await fetch(`/api/user/folder/removeItem`, {
+      await fetch(`http://localhost:8080/api/user/folder/removeItem`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemId }),
