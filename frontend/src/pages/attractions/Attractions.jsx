@@ -165,7 +165,7 @@ const DetailPage = () => {
             <div>
             <HeartOutlined
                 onClick={() => {
-                  const token = localStorage.getItem('sessionId'); // 取你的token
+                  // const token = localStorage.getItem('sessionId'); // 取你的token
                   if (!token) {
                     navigate('/login');  // 跳转到登录页
                   } else {
@@ -272,7 +272,7 @@ const DetailPage = () => {
         bodyStyle={{ maxHeight: 300, overflowY: 'auto' }}
       >
         <List
-          dataSource={folders}
+          dataSource={folders || []}
           renderItem={(folder) => (
             <List.Item
               onClick={() => setSelectedFolderId(folder.fileId)}
