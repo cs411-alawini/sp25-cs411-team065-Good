@@ -38,7 +38,7 @@ function CollectionPage() {
     try {
       const token = localStorage.getItem("sessionId");
       const res = await fetch(
-        `http://localhost:8080/api/collection_file/files/${folderId}/items`,
+        `http://35.226.211.97:8080/api/collection_file/files/${folderId}/items`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ function CollectionPage() {
     try {
       const token = localStorage.getItem("sessionId");
       const res = await fetch(
-        `http://localhost:8080/api/collection_file/files/${folderId}/items`,
+        `http://35.226.211.97:8080/api/collection_file/files/${folderId}/items`,
         {
           method: "POST",
           headers: {

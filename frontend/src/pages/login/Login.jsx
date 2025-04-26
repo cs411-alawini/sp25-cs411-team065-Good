@@ -12,7 +12,7 @@ const Login = () => {
 
     try {
       // 假设这是后端登录接口
-      const res = await fetch("http://localhost:8080/api/user/login", {
+      const res = await fetch("http://35.226.211.97:8080/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

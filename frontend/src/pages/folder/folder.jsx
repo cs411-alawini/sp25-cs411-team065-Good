@@ -35,7 +35,7 @@ const FolderPage = () => {
       const token = localStorage.getItem("sessionId"); // 获取存的token
 
       const res = await fetch(
-        `http://localhost:8080/api/collection_file/files`,
+        `http://35.226.211.97:8080/api/collection_file/files`,
         {
           method: "GET",
           headers: {
@@ -89,7 +89,7 @@ const FolderPage = () => {
       const token = localStorage.getItem("sessionId"); // 获取存的token
       if (modalMode === "create") {
         const res = await fetch(
-          "http://localhost:8080/api/collection_file/files",
+          "http://35.226.211.97:8080/api/collection_file/files",
           {
             method: "POST",
             headers: {
@@ -111,7 +111,7 @@ const FolderPage = () => {
         }
       } else if (modalMode === "rename") {
         const res = await fetch(
-          `http://localhost:8080/api/collection_file/files/${currentFolder.id}`,
+          `http://35.226.211.97:8080/api/collection_file/files/${currentFolder.id}`,
           {
             method: "PUT",
             headers: {
@@ -142,7 +142,7 @@ const FolderPage = () => {
     try {
       const token = localStorage.getItem("sessionId"); // 获取存的token
       const res = await fetch(
-        `http://localhost:8080/api/collection_file/files/${folderId}`,
+        `http://35.226.211.97:8080/api/collection_file/files/${folderId}`,
         {
           method: "DELETE",
           headers: {

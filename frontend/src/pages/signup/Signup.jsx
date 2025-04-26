@@ -10,7 +10,7 @@ const Signup = () => {
     //console.log("Register values:", values);
 
     try {
-      const res = await fetch("http://localhost:8080/api/user/register", {
+      const res = await fetch("http://35.226.211.97:8080/api/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

@@ -16,7 +16,7 @@ function Search() {
     async function fetchAttractions() {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:8080/api/attractions/state?state=${state}`);
+        const res = await fetch(`http://35.226.211.97:8080/api/attractions/state?state=${state}`);
         const result = await res.json();
         setAttractions(result.code === "200" ? result.data : []);
       } catch (err) {
