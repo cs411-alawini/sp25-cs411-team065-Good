@@ -39,25 +39,17 @@ const initialStates = [
   { name: 'Oregon', count: null, img: oregon },
 ];
 
-const slides = [
-  { id: 1, img: homepage1, link: '/spot/1' },
-  { id: 2, img: homepage2, link: '/spot/2' },
-  { id: 3, img: homepage3, link: '/spot/3' },
-];
+// const slides = [
+//   { id: 1, img: homepage1, link: '/spot/1' },
+//   { id: 2, img: homepage2, link: '/spot/2' },
+//   { id: 3, img: homepage3, link: '/spot/3' },
+// ];
 
-const UserMenu = ({ onLogout }) => (
-  <Menu>
-    <Menu.Item key="1">
-      <a href="/favorites">Favorite</a>
-    </Menu.Item>
-    <Menu.Item key="2" onClick={onLogout}>
-      Logout
-    </Menu.Item>
-  </Menu>
-);
+
 
 const HomePage = () => {
   const [states, setStates] = useState(initialStates);
+  const [slides, setSlides] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +57,7 @@ const HomePage = () => {
       const updated = await Promise.all(
         states.map(async (state) => {
           try {
-            const res = await fetch(`http://localhost:8080/api/attractions/count?state=${encodeURIComponent(state.name)}`);
+            const res = await fetch(`http://35.226.211.97:8080/api/attractions/count?state=${encodeURIComponent(state.name)}`);
             const whole = await res.json();
             const data = whole.data; 
             return { ...state, count: data };
@@ -78,6 +70,33 @@ const HomePage = () => {
       setStates(updated);
     };
     fetchCounts();
+
+    const fetchTopRate = async () => {
+      try {
+        const response = await fetch('http://35.226.211.97:8080/api/attractions/top-rated?n=4', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const whole = await response.json();
+        const data = whole.data; 
+
+
+        // 假设后端返回的每一项是 { id, imageUrl, spotId }
+        const mappedSlides = data.map(item => ({
+          id: item.locationId,
+          img: item.imageUrl,     
+          link: `/attraction/${item.locationId}`
+        }));
+
+        setSlides(mappedSlides);
+      } catch (error) {
+        console.error('Failed to fetch top rated spots:', error);
+      }
+    };
+
+    fetchTopRate();
   }, []);
 
   return (
@@ -87,6 +106,7 @@ const HomePage = () => {
       <Content style={{ padding: 0, margin: 0 }}>
         <div style={{ width: '100vw', height: 'calc(100vw * 0.25)', overflow: 'hidden' }}>
           <Swiper
+            key={slides.length}
             modules={[Autoplay]}
             autoplay={{ delay: 3000 }}
             loop={true}
@@ -120,7 +140,7 @@ const HomePage = () => {
                 <Card
                   hoverable
                   cover={<img alt={state.name} src={state.img} style={{ height: 150, objectFit: 'cover' }} />}
-                  onClick={() => navigate(`/search?query=${state.name}`)}
+                  onClick={() => navigate(`/search?state=${state.name}`)}
                 >
                   <Card.Meta
                     title={<div style={{ display: 'flex', justifyContent: 'space-between' }}>

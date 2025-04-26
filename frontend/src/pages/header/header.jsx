@@ -34,12 +34,30 @@ const TopHeader = () => {
       }
   };
   
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    setIsLoggedIn(false);
-    navigate('/homepage');
+  const handleLogout = async () => {
+    try {
+      await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('sessionId')}`,
+        },
+      });
+  
+      localStorage.removeItem('sessionId');
+      localStorage.removeItem('userId');
+      setIsLoggedIn(false);
+  
+      window.location.reload();
+    } catch (error) {
+      console.error('Logout failed', error);
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      setIsLoggedIn(false);
+      window.location.reload();
+    }
   };
+  
   
   const handleFavorite = () => {
     const userId = localStorage.getItem('userId');
@@ -76,10 +94,19 @@ const TopHeader = () => {
         gap: '30px',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+      <div
+        onClick={() => navigate('/homepage')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexShrink: 0,
+          cursor: 'pointer'
+        }}
+      >
         <img src={logo} alt="logo" className="logo-img" />
         <span className="title">Travel Mate</span>
       </div>
+
 
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
         <Search

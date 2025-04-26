@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Button, message } from "antd";
 import CollectionList from "../../components/collection-list/collectionList";
 import "./collectionPage.css"; // 引入样式
+import TopHeader from '../header/header.jsx';
 // import mockData from "./result.json"; // 引入本地数据
 
 function CollectionPage() {
@@ -96,6 +97,8 @@ function CollectionPage() {
   };
 
   return (
+    <div>
+      <TopHeader/>
     <div className="search-page">
       <h1 className="search-title">My Favorite Items</h1>
       <div style={{ marginBottom: 16 }}>
@@ -119,6 +122,7 @@ function CollectionPage() {
           onSelectChange={handleSelectChange}
         />
       )}
+    </div>
     </div>
   );
 }

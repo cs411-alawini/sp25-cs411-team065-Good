@@ -4,7 +4,6 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import TopHeader from '../header/header.jsx';
 const { Title, Paragraph } = Typography;
-import mockUrl from '@/assets/illinois.png';
 import { useNavigate } from 'react-router-dom';
 
 const DetailPage = () => {
@@ -22,7 +21,7 @@ const DetailPage = () => {
 
   const fetchAttraction = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/attractions/${id}`);
+      const res = await fetch(`http://35.226.211.97:8080/api/attractions/${id}`);
       const whole = await res.json();
       const data = whole.data;
       setAttraction(data);
@@ -44,7 +43,7 @@ const DetailPage = () => {
 
   const fetchNearbyHotels = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/hotels/by-attraction/${id}`);
+      const res = await fetch(`http://35.226.211.97:8080/api/hotels/by-attraction/${id}`);
       const whole = await res.json();
       const data = whole.data;        
       setNearbyHotels(data);
@@ -55,14 +54,15 @@ const DetailPage = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/collection_file/files`, {
+      const res = await fetch(`http://35.226.211.97:8080/api/collection_file/files`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
       });      
-      const data = await res.json();
+      const whole = await res.json();
+      const data = whole.data; 
       setFolders(data);
     } catch (err) {
       console.error('Failed to fetch folders:', err);
@@ -85,7 +85,7 @@ const DetailPage = () => {
       return message.warning('Please select a folder');
     try {
       const itemId = selectedHotel?.itemId || attraction.itemId;
-      await fetch(`/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
+      await fetch(`http://35.226.211.97:8080/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,23 +116,23 @@ const DetailPage = () => {
     }
   };
 
-  const removeFromFolder = async (itemId) => {
-    try {
-      const itemId = selectedHotel?.itemId || attraction.itemId;
-      await fetch(`/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      return true;
-    } catch (err) {
-      console.error('Failed to remove from folder:', err);
-      message.error('Fail to remove from folder');
-      return false;
-    }
-  };
+  // const removeFromFolder = async (itemId) => {
+  //   try {
+  //     const itemId = selectedHotel?.itemId || attraction.itemId;
+  //     await fetch(`/api/collection_file/files/${selectedFolderId}/items/${itemId}`, {
+  //       method: 'DELETE',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //     });
+  //     return true;
+  //   } catch (err) {
+  //     console.error('Failed to remove from folder:', err);
+  //     message.error('Fail to remove from folder');
+  //     return false;
+  //   }
+  // };
   
 
   useEffect(() => {
@@ -151,7 +151,6 @@ const DetailPage = () => {
     <Layout style={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', backgroundColor: '#f5f5f5' }}>
     <TopHeader/>
     <div style={{ padding: '32px', backgroundColor:'#f5f2eb' }}>
-      {/* 景点区域 */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px' }}>
         {/* 景点信息区域 */}
         <div style={{ marginBottom: '30px' }}>
@@ -164,7 +163,19 @@ const DetailPage = () => {
               </Title>
             </div>
             <div>
-            {isFavorited ? (
+            <HeartOutlined
+                onClick={() => {
+                  const token = localStorage.getItem('sessionId'); // 取你的token
+                  if (!token) {
+                    navigate('/login');  // 跳转到登录页
+                  } else {
+                    openFolderSelector(null);  // 正常打开收藏夹选择器
+                  }
+                }}
+                style={{ fontSize: 24, color: 'red', cursor: 'pointer' }}
+              />
+
+            {/* {isFavorited ? (
               <HeartFilled
                 style={{ fontSize: 24, color: 'red', cursor: 'pointer' }}
                 onClick={async () => {
@@ -177,7 +188,7 @@ const DetailPage = () => {
                 onClick={() => openFolderSelector(null)}
                 style={{ fontSize: 24, color: 'red', cursor: 'pointer' }}
               />
-            )}
+            )} */}
           </div>
 
           </div>
@@ -225,7 +236,7 @@ const DetailPage = () => {
               <Paragraph style={{ marginBottom: 0 }}>{hotel.description}</Paragraph>
             </Col>
             <Col span={1} style={{ textAlign: 'right' }}>
-            {hotel.favorited ? (
+            {/* {hotel.favorited ? (
               <HeartFilled
                 style={{ fontSize: 20, color: 'red', cursor: 'pointer' }}
                 onClick={async () => {
@@ -244,7 +255,7 @@ const DetailPage = () => {
                 style={{ fontSize: 20, color: 'red', cursor: 'pointer' }}
                 onClick={() => openFolderSelector(hotel)}
               />
-            )}
+            )} */}
             </Col>
           </Row>
         </Card>
@@ -264,15 +275,15 @@ const DetailPage = () => {
           dataSource={folders}
           renderItem={(folder) => (
             <List.Item
-              onClick={() => setSelectedFolderId(folder.folderId)}
+              onClick={() => setSelectedFolderId(folder.fileId)}
               style={{
                 border: '1px solid #ccc',
                 padding: '10px',
                 cursor: 'pointer',
-                backgroundColor: folder.folderId === selectedFolderId ? '#e6f7ff' : '#fff'
+                backgroundColor: folder.fileId === selectedFolderId ? '#e6f7ff' : '#fff'
               }}
             >
-              {folder.folderName}
+              {folder.name}
             </List.Item>
           )}
         />
