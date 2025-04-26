@@ -3,7 +3,7 @@
 <mapper namespace="g65.repository.mapper.CollectionMapper">
 
     <resultMap id="attractionMap" type="g65.repository.po.AttractionPO">
-        <id column="location_id" property="locationId"/>
+        <id column="id" property="locationId"/>
         <result column="item_id" property="itemId"/>
         <result column="name" property="name"/>
         <result column="image_url" property="imageUrl"/>
@@ -16,7 +16,7 @@
             parameterType="java.lang.Integer"
             resultMap="attractionMap">
         SELECT
-            a.location_id   AS location_id,
+            a.id            AS id,
             c.item_id       AS item_id,
             a.name          AS name,
             a.image_url     AS image_url,
