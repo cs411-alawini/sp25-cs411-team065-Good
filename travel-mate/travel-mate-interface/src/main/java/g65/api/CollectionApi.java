@@ -1,5 +1,6 @@
 package g65.api;
 
+import g65.dto.AnalyzeUserFavoritesResponseDTO;
 import g65.response.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,4 +19,12 @@ public interface CollectionApi {
     Response<Boolean> isItemCollected(
             @PathVariable("itemId") Integer itemId
     );
+
+    /**
+     * Analyze user's favorites to find top attractions and states.
+     *
+     * @return aggregated favorites data
+     */
+    @GetMapping("/analyze")
+    Response<AnalyzeUserFavoritesResponseDTO> analyzeUserFavorites();
 }

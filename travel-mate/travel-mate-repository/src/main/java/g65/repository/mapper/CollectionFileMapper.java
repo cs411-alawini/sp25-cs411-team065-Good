@@ -1,10 +1,11 @@
 package g65.repository.mapper;
 
 import g65.repository.po.CollectionFilePO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CollectionFileMapper {

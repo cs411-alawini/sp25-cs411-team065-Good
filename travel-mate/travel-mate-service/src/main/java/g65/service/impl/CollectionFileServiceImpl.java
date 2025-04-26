@@ -1,5 +1,6 @@
 package g65.service.impl;
 
+import g65.aggregate.AnalyzeUserFavoritesAggregate;
 import g65.exception.BizException;
 import g65.repository.CollectionFileRepository;
 import g65.repository.CollectionRepository;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -125,5 +127,10 @@ public class CollectionFileServiceImpl implements CollectionFileService {
     @Override
     public void transferCollectionItems(Integer userId, Integer sourceFileId, Integer targetFileId, List<Integer> itemIds) {
         collectionFileRepository.transferCollectionItems(sourceFileId, targetFileId, itemIds);
+    }
+
+    @Override
+    public AnalyzeUserFavoritesAggregate analyzeUserFavorites(Integer userId) {
+        return collectionFileRepository.analyzeUserFavorites(userId);
     }
 }

@@ -1,5 +1,6 @@
 package g65.service;
 
+import g65.aggregate.AnalyzeUserFavoritesAggregate;
 import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
 
@@ -79,5 +80,16 @@ public interface CollectionFileService {
      * @param itemIds the list of items to transfer (null if transfer all)
      */
     void transferCollectionItems(Integer userId, Integer sourceFileId, Integer targetFileId, List<Integer> itemIds);
+
+    /**
+     * Analyzes the user's favorite collections by calling a stored procedure.
+     * The analysis includes:
+     * - Top 3 attractions the user has collected the most.
+     * - Top 3 states where the user has the most collections.
+     *
+     * @param userId the ID of the user
+     * @return an aggregate result containing lists of top attractions and top states
+     */
+    AnalyzeUserFavoritesAggregate analyzeUserFavorites(Integer userId);
 }
 
