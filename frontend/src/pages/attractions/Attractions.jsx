@@ -48,7 +48,7 @@ const DetailPage = () => {
   );
 
   
-  const userId = 1;
+  const userId = localStorage.getItem('userId');
 
   const fetchAttraction = async () => {
     try {

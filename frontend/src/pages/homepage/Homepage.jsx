@@ -57,29 +57,8 @@ const UserMenu = ({ onLogout }) => (
 );
 
 const HomePage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [states, setStates] = useState(initialStates);
   const navigate = useNavigate();
-
-  const handleUserClick = () => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    }
-  };
-
-  const handleFavorite = () => {
-    navigate('/user/:id/folder')
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-    const handleSearch = (value) => {
-    if (value.trim()) {
-        navigate(`/search?state=${encodeURIComponent(value.trim())}`);
-    }
-    };
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -108,14 +87,7 @@ const HomePage = () => {
 
   return (
     <Layout style={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', backgroundColor: '#f5f5f5' }}>
-      <TopHeader
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
-        handleFavorite={handleFavorite}
-        handleUserClick={handleUserClick}
-        UserMenu={UserMenu}
-        handleSearch={handleSearch}
-      />
+      <TopHeader/>
 
       <Content style={{ padding: 0, margin: 0 }}>
         <div style={{ width: '100vw', height: 'calc(100vw * 0.25)', overflow: 'hidden' }}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Input, Dropdown, Avatar } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 const { Header } = Layout;
 const { Search } = Input;
@@ -16,16 +17,44 @@ const userMenuItems = [
   }
 ];
 
-const handleMenuClick = ({ key }) => {
-  if (key === 'logout') {
-    handleLogout();
-  }
-  else if (key == 'favorite') {
-    handleFavorite();
-  }
-};
+const TopHeader = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem('token');
+  });
 
-const TopHeader = ({ isLoggedIn, handleLogout, handleFavorite, handleUserClick, UserMenu, handleSearch}) => {
+  const userId = localStorage.getItem('userId');
+  
+  const navigate = useNavigate();
+
+  const handleUserClick = () => {
+      if (!isLoggedIn) {
+        navigate('/login');
+      }
+  };
+  
+  const handleFavorite = () => {
+    navigate('/user/:id/folder')
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const handleSearch = (value) => {
+  if (value.trim()) {
+      navigate(`/search?state=${encodeURIComponent(value.trim())}`);
+  }
+  };
+
+  const handleMenuClick = ({ key }) => {
+    if (key === 'logout') {
+      handleLogout();
+    }
+    else if (key == 'favorite') {
+      handleFavorite();
+    }
+  };
+
   return (
     <Header
       style={{
