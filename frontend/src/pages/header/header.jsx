@@ -7,18 +7,25 @@ const { Search } = Input;
 
 const userMenuItems = [
   {
+    key: 'favorite',
+    label: 'Favorite'
+  },
+  {
     key: 'logout',
     label: 'Logout',
-  },
+  }
 ];
 
 const handleMenuClick = ({ key }) => {
   if (key === 'logout') {
     handleLogout();
   }
+  else if (key == 'favorite') {
+    handleFavorite();
+  }
 };
 
-const TopHeader = ({ isLoggedIn, handleLogout, handleUserClick, UserMenu, handleSearch}) => {
+const TopHeader = ({ isLoggedIn, handleLogout, handleFavorite, handleUserClick, UserMenu, handleSearch}) => {
   return (
     <Header
       style={{

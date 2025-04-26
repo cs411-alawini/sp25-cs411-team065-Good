@@ -67,6 +67,10 @@ const HomePage = () => {
     }
   };
 
+  const handleFavorite = () => {
+    navigate('/user/:id/folder')
+  }
+
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
@@ -107,6 +111,7 @@ const HomePage = () => {
       <TopHeader
         isLoggedIn={isLoggedIn}
         handleLogout={handleLogout}
+        handleFavorite={handleFavorite}
         handleUserClick={handleUserClick}
         UserMenu={UserMenu}
         handleSearch={handleSearch}
