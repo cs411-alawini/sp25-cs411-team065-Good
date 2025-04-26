@@ -6,12 +6,10 @@ import g65.response.ResponseCode;
 import g65.service.AttractionService;
 import g65.vo.AttractionVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class AttractionController implements AttractionApi {

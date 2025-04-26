@@ -8,11 +8,9 @@ import g65.service.CollectionService;
 import g65.util.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class CollectionController implements CollectionApi {

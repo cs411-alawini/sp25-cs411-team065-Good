@@ -34,9 +34,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         String token = authHeader.substring(7);
-        String userId = redisTemplate.opsForValue().get(Constants.RedisKey.LOGIN_TOKEN + token);
 
-        if (userId == null) {
+        String userId;
+        try {
+            userId = redisTemplate.opsForValue().get(Constants.RedisKey.LOGIN_TOKEN + token);
+        } catch (Exception e) {
             throw new BizException(ResponseCode.LOGIN_EXPIRED);
         }
 

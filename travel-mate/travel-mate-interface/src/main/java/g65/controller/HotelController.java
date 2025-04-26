@@ -8,13 +8,11 @@ import g65.service.HotelService;
 import g65.vo.HotelVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Slf4j
-@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class HotelController implements HotelApi {

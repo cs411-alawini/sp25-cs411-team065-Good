@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Validated
-@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class UserController implements UserApi {
