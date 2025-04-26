@@ -22,7 +22,9 @@ const Login = () => {
 
       if (result.code === "200") {
         const sessionId = result.data.token;
+        const userId = result.data.user.id;  
         localStorage.setItem("sessionId", sessionId);
+        localStorage.setItem("userId", userId); // 存储 userId
         //console.log("sessionId from response:", sessionId);
         message.success("Login successful!");
 
