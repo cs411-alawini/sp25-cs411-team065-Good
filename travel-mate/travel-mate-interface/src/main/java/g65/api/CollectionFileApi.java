@@ -56,7 +56,7 @@ public interface CollectionFileApi {
      * @param request the item IDs to remove
      * @return deletion success
      */
-    @DeleteMapping("/files/{fileId}/items")
+    @PostMapping("/files/{fileId}/items")
     Response<Void> deleteCollectionItem(
             @PathVariable("fileId") Integer fileId,
             @RequestBody DeleteItemRequestDTO request
