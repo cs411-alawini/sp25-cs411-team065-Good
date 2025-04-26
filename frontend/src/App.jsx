@@ -5,6 +5,7 @@ import Attractions from './pages/attractions/Attractions.jsx';
 import Login from './pages/login/login.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import FolderPage from './pages/folder/folder.jsx';
+import CollectionPage from './pages/collectionPage/collectionPage.jsx'; // 引入收藏夹页面
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/user/:id/folder" element={< FolderPage/>} />
-        <Route path="/user/:id/folder/:folderId" element={< FolderPage/>} />
+        <Route path="/user/:id/folder/:folderId" element={< CollectionPage/>} />
       </Routes>
     </Router>
   );

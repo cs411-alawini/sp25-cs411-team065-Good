@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Modal, Input, Button, Dropdown, Menu, Popconfirm, Row, Col, message } from "antd";
+import {
+  Card,
+  Modal,
+  Input,
+  Button,
+  Dropdown,
+  Menu,
+  Popconfirm,
+  Row,
+  Col,
+  message,
+} from "antd";
 import { EllipsisOutlined, FolderAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const FolderPage = () => {
-  const { userId } = useParams();
+  const { id } = useParams();
+  const userId = id;
   const [folders, setFolders] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMode, setModalMode] = useState("create"); // 'create' or 'rename'
@@ -19,18 +31,37 @@ const FolderPage = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/collection_file/files?userId=${userId}`);
+      const token = localStorage.getItem("sessionId"); // 获取存的token
+
+      const res = await fetch(
+        `http://localhost:8080/api/collection_file/files`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // 带上 token
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const result = await res.json();
-      if (Array.isArray(result)) {
-        // result 是 List<CollectionFileVO>，格式可能是 [{ fileId, name }, ...]
-        const mapped = result.map(item => ({ id: item.fileId, name: item.name }));
+
+      if (Array.isArray(result.data)) {
+        const mapped = result.data.map((item) => ({
+          id: item.fileId,
+          name: item.name,
+        }));
         setFolders(mapped);
       } else {
         message.error("Unexpected response format");
       }
     } catch (err) {
-      console.error(err);
-      message.error("Network error while loading folders");
+      console.error("Fetch error:", err);
+      message.error("Network error or server error");
     }
   };
 
@@ -54,27 +85,43 @@ const FolderPage = () => {
     }
 
     try {
+      const token = localStorage.getItem("sessionId"); // 获取存的token
       if (modalMode === "create") {
-        const res = await fetch("http://localhost:8080/api/collection_file/files", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: parseInt(userId), name: inputValue }),
-        });
+        const res = await fetch(
+          "http://localhost:8080/api/collection_file/files",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`, // 带上 token
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: parseInt(userId),
+              name: inputValue,
+            }),
+          }
+        );
         const result = await res.json();
-        if (result.code === 200 || res.ok) {
+        if (result.code === "200") {
           message.success("Folder created");
           fetchFolders();
         } else {
           message.error(result.msg || "Create failed");
         }
       } else if (modalMode === "rename") {
-        const res = await fetch(`http://localhost:8080/api/collection_file/files/${currentFolder.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: inputValue }),
-        });
+        const res = await fetch(
+          `http://localhost:8080/api/collection_file/files/${currentFolder.id}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`, // 带上 token
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: inputValue }),
+          }
+        );
         const result = await res.json();
-        if (result.code === 200 || res.ok) {
+        if (result.code === "200") {
           message.success("Folder renamed");
           fetchFolders();
         } else {
@@ -92,9 +139,16 @@ const FolderPage = () => {
 
   const deleteFolder = async (folderId) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/collection_file/files/${folderId}`, {
-        method: "DELETE",
-      });
+      const token = localStorage.getItem("sessionId"); // 获取存的token
+      const res = await fetch(
+        `http://localhost:8080/api/collection_file/files/${folderId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`, // 带上 token
+          },
+        }
+      );
       if (res.ok) {
         message.success("Folder deleted");
         fetchFolders();
@@ -110,9 +164,19 @@ const FolderPage = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 24,
+        }}
+      >
         <h2>My Folders</h2>
-        <Button icon={<FolderAddOutlined />} type="primary" onClick={openCreate}>
+        <Button
+          icon={<FolderAddOutlined />}
+          type="primary"
+          onClick={openCreate}
+        >
           New Folder
         </Button>
       </div>
@@ -137,10 +201,19 @@ const FolderPage = () => {
             <Col xs={24} sm={12} md={8} lg={6} key={folder.id}>
               <Card
                 title={folder.name}
-                extra={<Dropdown overlay={menu}><EllipsisOutlined style={{ cursor: "pointer" }} /></Dropdown>}
-                onClick={() => navigate(`user/${userId}/folder/${folder.id}`)}
+                extra={
+                  <Dropdown overlay={menu}>
+                    <EllipsisOutlined style={{ cursor: "pointer" }} />
+                  </Dropdown>
+                }
               >
-                <p>This is a folder.</p>
+                <p
+                  onClick={() =>
+                    navigate(`/user/${userId}/folder/${folder.id}`)
+                  }
+                >
+                  This is a folder.
+                </p>
               </Card>
             </Col>
           );

@@ -1,0 +1,16 @@
+.card-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ✅ 水平居中每个子项 */
+    background-color: white;
+    padding: 16px;
+    gap: 16px; /* ✅ 卡片之间统一间距 */
+  }
+  
+  .card-list > div {
+    width: 100%;
+    max-width: 800px;  /* 和 .card 的 max-width 匹配 */
+    display: flex;
+    justify-content: center;
+  }
+  
