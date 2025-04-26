@@ -17,37 +17,7 @@ const DetailPage = () => {
   const [folderModalVisible, setFolderModalVisible] = useState(false);
   const [folders, setFolders] = useState([]);
   const [selectedFolderId, setSelectedFolderId] = useState(null);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const token = localStorage.getItem('token');
-  const handleUserClick = () => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    }
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-  const handleSearch = (value) => {
-  if (value.trim()) {
-      navigate(`/search?state=${encodeURIComponent(value.trim())}`);
-  }
-  };
-
-  const UserMenu = ({ onLogout }) => (
-    <Menu>
-      <Menu.Item key="1">
-        <a href="/favorites">Favorite</a>
-      </Menu.Item>
-      <Menu.Item key="2" onClick={onLogout}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
-
-  
+  const token = localStorage.getItem('sessionId');
   const userId = localStorage.getItem('userId');
 
   const fetchAttraction = async () => {
@@ -179,13 +149,7 @@ const DetailPage = () => {
 
   return (
     <Layout style={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', backgroundColor: '#f5f5f5' }}>
-    <TopHeader
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
-        handleUserClick={handleUserClick}
-        UserMenu={UserMenu}
-        handleSearch={handleSearch}
-      />
+    <TopHeader/>
     <div style={{ padding: '32px', backgroundColor:'#f5f2eb' }}>
       {/* 景点区域 */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px' }}>

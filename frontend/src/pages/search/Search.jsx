@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import AttractionList from "../../components/items-list/attractionList"; // 引入通用组件
+import TopHeader from '../header/header.jsx';
 // import result from "./result.json";
 import "./search.css"; // 引入样式
 
@@ -35,9 +36,12 @@ function Search() {
   // }, []);
 
   return (
-    <div className="search-page">
-      <h1 className="search-title">Search Results for "{state}"</h1>
-      {loading ? <p>Loading...</p> : <AttractionList data={attractions} />}
+    <div>
+      <TopHeader/>
+      <div className="search-page">
+        <h1 className="search-title">Search Results for "{state}"</h1>
+        {loading ? <p>Loading...</p> : <AttractionList data={attractions} />}
+      </div>
     </div>
   );
 }

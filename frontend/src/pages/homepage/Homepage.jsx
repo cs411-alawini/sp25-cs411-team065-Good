@@ -78,11 +78,6 @@ const HomePage = () => {
       setStates(updated);
     };
     fetchCounts();
-    const token = localStorage.getItem("sessionId");
-    console.log(token);
-    if (token) {
-      setIsLoggedIn(true);
-    }
   }, []);
 
   return (

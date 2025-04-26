@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Input, Dropdown, Avatar } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -18,12 +18,14 @@ const userMenuItems = [
 ];
 
 const TopHeader = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return !!localStorage.getItem('token');
-  });
-
-  const userId = localStorage.getItem('userId');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
+  useEffect(() => {
+    const token = localStorage.getItem('sessionId');
+    setIsLoggedIn(!!token);
+    console.log(token);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleUserClick = () => {
@@ -32,13 +34,22 @@ const TopHeader = () => {
       }
   };
   
-  const handleFavorite = () => {
-    navigate('/user/:id/folder')
-  }
-
   const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     setIsLoggedIn(false);
+    navigate('/homepage');
   };
+  
+  const handleFavorite = () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      navigate(`/user/${userId}/folder`);
+    } else {
+      navigate('/login');
+    }
+  };
+  
 
   const handleSearch = (value) => {
   if (value.trim()) {
