@@ -32,4 +32,8 @@ public class CollectionFileRepository {
     public int updateNameByUserIdAndFileId(Integer userId, Integer fileId, String newName) {
         return collectionFileMapper.updateNameByUserIdAndFileId(userId, fileId, newName);
     }
+
+    public void transferCollectionItems(Integer sourceFileId, Integer targetFileId, List<Integer> itemIds) {
+        collectionFileMapper.transferCollectionItems(sourceFileId, targetFileId, itemIds);
+    }
 }

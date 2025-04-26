@@ -121,4 +121,9 @@ public class CollectionFileServiceImpl implements CollectionFileService {
                 .name(newName)
                 .build();
     }
+
+    @Override
+    public void transferCollectionItems(Integer userId, Integer sourceFileId, Integer targetFileId, List<Integer> itemIds) {
+        collectionFileRepository.transferCollectionItems(sourceFileId, targetFileId, itemIds);
+    }
 }

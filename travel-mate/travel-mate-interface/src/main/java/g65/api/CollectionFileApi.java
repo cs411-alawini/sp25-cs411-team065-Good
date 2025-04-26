@@ -3,6 +3,7 @@ package g65.api;
 import g65.dto.CreateFolderRequestDTO;
 import g65.dto.DeleteItemRequestDTO;
 import g65.dto.RenameFolderRequestDTO;
+import g65.dto.TransferRequestDTO;
 import g65.response.Response;
 import g65.vo.AttractionVO;
 import g65.vo.CollectionFileVO;
@@ -86,5 +87,20 @@ public interface CollectionFileApi {
     Response<CollectionFileVO> renameFolder(
             @PathVariable("fileId") Integer fileId,
             @RequestBody @Valid RenameFolderRequestDTO request
+    );
+
+    /**
+     * Transfers items from one collection folder to another.
+     *
+     * @param sourceFileId the ID of the source collection folder
+     * @param targetFileId the ID of the target collection folder
+     * @param request optional, list of item IDs to transfer; if not provided, all items will be transferred
+     * @return a standardized response indicating transfer success
+     */
+    @PostMapping("/files/{sourceFileId}/{targetFileId}")
+    Response<Void> transferCollectionItems(
+            @PathVariable("sourceFileId") Integer sourceFileId,
+            @PathVariable("targetFileId") Integer targetFileId,
+            @RequestBody(required = false) TransferRequestDTO request
     );
 }

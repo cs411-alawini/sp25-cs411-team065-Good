@@ -69,5 +69,15 @@ public interface CollectionFileService {
      * @return the updated folder VO
      */
     CollectionFileVO renameCollectionFolder(Integer userId, Integer fileId, String newName);
+
+    /**
+     * Transfers collection items from one folder to another.
+     *
+     * @param userId current user's ID
+     * @param sourceFileId the ID of the source folder
+     * @param targetFileId the ID of the target folder
+     * @param itemIds the list of items to transfer (null if transfer all)
+     */
+    void transferCollectionItems(Integer userId, Integer sourceFileId, Integer targetFileId, List<Integer> itemIds);
 }
 

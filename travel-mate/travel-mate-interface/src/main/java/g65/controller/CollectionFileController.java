@@ -4,6 +4,7 @@ import g65.api.CollectionFileApi;
 import g65.dto.CreateFolderRequestDTO;
 import g65.dto.DeleteItemRequestDTO;
 import g65.dto.RenameFolderRequestDTO;
+import g65.dto.TransferRequestDTO;
 import g65.exception.BizException;
 import g65.response.Response;
 import g65.response.ResponseCode;
@@ -114,6 +115,19 @@ public class CollectionFileController implements CollectionFileApi {
                 .code(ResponseCode.SUCCESS.getCode())
                 .msg(ResponseCode.SUCCESS.getMessage())
                 .data(updated)
+                .build();
+    }
+
+    @Override
+    public Response<Void> transferCollectionItems(Integer sourceFileId, Integer targetFileId, TransferRequestDTO request) {
+        Integer userId = UserContext.getUserId();
+        if (userId == null) {
+            throw new BizException(ResponseCode.UNAUTHORIZED);
+        }
+        collectionFileService.transferCollectionItems(userId, sourceFileId, targetFileId, request == null ? null : request.getItemIds());
+        return Response.<Void>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .msg(ResponseCode.SUCCESS.getMessage())
                 .build();
     }
 }
