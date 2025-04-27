@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/homepage" element={<HomePage />} />
-        {/* url: /search?query=xxx */}
+        {/* url: /search?state=xxx */}
         <Route path="/search" element={<Search />} />
         <Route path="/attraction/:id" element={<Attractions />} />
         <Route path="/login" element={<Login />} />

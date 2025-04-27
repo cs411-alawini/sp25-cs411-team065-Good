@@ -15,6 +15,7 @@ import {
 import { EllipsisOutlined, FolderAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import TopHeader from '../header/header.jsx';
+import Top from '../folder/top.jsx';
 
 const FolderPage = () => {
   const { id } = useParams();
@@ -237,6 +238,7 @@ const FolderPage = () => {
         />
       </Modal>
     </div>
+    <Top/>
     </div>
   );
 };
