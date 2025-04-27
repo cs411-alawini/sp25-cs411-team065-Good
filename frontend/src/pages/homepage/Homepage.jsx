@@ -7,10 +7,6 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import "./Homepage.css";
 
-import homepage1 from '@/assets/homepage1.png';
-import homepage2 from '@/assets/homepage2.png';
-import homepage3 from '@/assets/homepage3.png';
-
 import california from '@/assets/california.png';
 import texas from '@/assets/texas.png';
 import alabama from '@/assets/alabama.png';
