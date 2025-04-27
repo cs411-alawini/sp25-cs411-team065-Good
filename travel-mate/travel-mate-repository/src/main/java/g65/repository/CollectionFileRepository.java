@@ -6,15 +6,18 @@ import g65.repository.po.AttractionPO;
 import g65.repository.po.CollectionFilePO;
 import g65.vo.AttractionVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -44,7 +47,13 @@ public class CollectionFileRepository {
     }
 
     public void transferCollectionItems(Integer sourceFileId, Integer targetFileId, List<Integer> itemIds) {
-        collectionFileMapper.transferCollectionItems(sourceFileId, targetFileId, itemIds);
+        String itemIdStr = itemIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+
+        String callSql = "CALL transfer_collection_items(?, ?, ?)";
+
+        jdbcTemplate.update(callSql, sourceFileId, targetFileId, itemIdStr);
     }
 
     public AnalyzeUserFavoritesAggregate analyzeUserFavorites(Integer userId) {

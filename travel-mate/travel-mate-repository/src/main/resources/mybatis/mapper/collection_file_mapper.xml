@@ -37,26 +37,4 @@
           AND file_id = #{fileId}
     </update>
 
-    <update id="transferCollectionItems">
-        START TRANSACTION;
-
-        INSERT IGNORE INTO Collections (file_id, item_id)
-        SELECT #{targetFileId}, item_id
-        FROM Collections
-        WHERE file_id = #{sourceFileId}
-        AND item_id IN
-        <foreach collection="itemIds" item="itemId" open="(" separator="," close=")">
-            #{itemId}
-        </foreach>;
-
-        DELETE FROM Collections
-        WHERE file_id = #{sourceFileId}
-        AND item_id IN
-        <foreach collection="itemIds" item="itemId" open="(" separator="," close=")">
-            #{itemId}
-        </foreach>;
-
-        COMMIT;
-    </update>
-
 </mapper>

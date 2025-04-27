@@ -23,8 +23,4 @@ public interface CollectionFileMapper {
     int updateNameByUserIdAndFileId(@Param("userId") Integer userId,
                                     @Param("fileId") Integer fileId,
                                     @Param("newName") String newName);
-
-    void transferCollectionItems(@Param("sourceFileId") Integer sourceFileId,
-                                 @Param("targetFileId") Integer targetFileId,
-                                 @Param("itemIds") List<Integer> itemIds);
 }
