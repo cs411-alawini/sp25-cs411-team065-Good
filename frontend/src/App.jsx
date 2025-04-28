@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Search from './pages/search/Search.jsx';
 import HomePage from './pages/homepage/Homepage.jsx';
 import Attractions from './pages/attractions/Attractions.jsx';
-import Login from './pages/login/login.jsx';
+import Login from './pages/login/Login.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import FolderPage from './pages/folder/folder.jsx';
 import CollectionPage from './pages/collectionPage/collectionPage.jsx'; // 引入收藏夹页面
