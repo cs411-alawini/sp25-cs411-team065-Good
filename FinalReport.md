@@ -67,6 +67,41 @@ This change was time-consuming during the later development phase.
 > **Decide early** whether you need manual transaction control or stored procedures.  
 > Retroactively changing the transaction mechanism after the system is partially completed can be extremely difficult and error-prone.
 
+---
+
+### Fangyang (Frontend)
+
+The main challenge was handling **dynamic UI state synchronization** when users operated on collections and folders.  
+Since operations like creating, renaming, or transferring folders would change the underlying data structure, React components had to re-render correctly without causing unnecessary reloading or inconsistent display states.  
+We had to carefully manage **React component state** and **API interaction timing** to avoid UI flickering or stale data after operations.
+
+**Advice to future teams:**  
+> **Centralize state management** early using tools like Context API or Redux if your frontend needs to handle complex interactions.  
+> Avoid redundant API calls by designing clear local state updates after successful backend operations.
+
+---
+
+### Zixuan (Frontend UI/UX)
+
+The main challenge was ensuring **responsive and adaptive layout design** across different devices and screen sizes.  
+Because travel planning interfaces involve search bars, lists, detailed panels, and popup dialogs, keeping the user experience consistent and user-friendly required fine-tuning **CSS flexbox/grid layouts** and handling edge cases like overflow or dynamic resizing.
+
+**Advice to future teams:**  
+> **Design mobile-first** or plan a responsive structure from the beginning.  
+> Rely on standardized design systems or UI libraries to save time, and conduct early testing for different screen widths to avoid major redesigns later.
+
+---
+
+### Yanjun (Database & Backend Support)
+
+The main challenge was **managing referential integrity and automatic counter updates** across multiple tables, especially under concurrent operations.  
+While triggers were used to automatically maintain `couter` values in the `Items` table, ensuring that triggers, transactions, and foreign key cascades all work harmoniously required careful schema design and comprehensive testing.
+
+**Advice to future teams:**  
+> **Test database triggers and foreign key constraints thoroughly under realistic concurrent scenarios.**  
+> Simulate multi-user environments early to catch potential race conditions, especially when using triggers that update aggregated fields like counters.
+
+
 ## 8. Other Changes Compared to the Original Proposal
 
 - **Cancelled** the plan to build a machine learning-based recommendation engine.
