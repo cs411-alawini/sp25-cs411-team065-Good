@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import AttractionList from "../../components/items-list/attractionList"; // 引入通用组件
 import TopHeader from '../header/header.jsx';
 // import result from "./result.json";
-import "./search.css"; // 引入样式
+import "./Search.css"; // 引入样式
 
 function Search() {
   const [searchParams] = useSearchParams();
