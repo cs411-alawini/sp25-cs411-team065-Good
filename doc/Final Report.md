@@ -122,3 +122,7 @@ While triggers were used to automatically maintain `couter` values in the `Items
 | **Fangyang** | Frontend React structure setup, search and collection management page implementation, details page development |
 | **Zixuan** | Frontend UI/UX design (layout, CSS), page implementation, frontend interaction optimization |
 | **Yanjun** | Data preprocessing and cleaning, MySQL database schema design and optimization, Transaction/Stored Procedure/Trigger implementation, partial backend
+
+## Appendix
+
+- ***[Video Link](https://uillinoisedu-my.sharepoint.com/:v:/g/personal/zixuan41_illinois_edu/EaeXyrpiXz1NrYeqQXS4f-gBmN2XtYOR19XjngEle3Zhcg)***
